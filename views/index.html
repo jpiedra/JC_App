@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+   <head>
+	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	  <title>JavaCrypt - Menu</title>
+		<style>
+			body { background-color: black; }
+		</style>
+  </head>
+  <body>
+	<div class="widewrapper main">
+		<img class="img-responsive" alt="JavaCrypt menu logo">
+	</div>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+	var socket=io();
+	
+	socket.on('logo', function(info) {
+		if (info.image) {
+			var logo = new Image();
+			logo.src = 'data:image/jpeg;base64,' + info.buffer;
+		}
+	});
+  </script>
+  </body>
+</html>
