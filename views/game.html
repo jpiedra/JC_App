@@ -1,29 +1,95 @@
 <!doctype html>
 <html>
-   <head>
-      <title>JavaCrypt - Game</title>
-		<style>
+	<head>
+		<title>JavaCrypt - Game</title>
+			<style>
 	  	
-		</style>
-  </head>
-  <body>
-	<canvas id='canvas' width="576" height="576"></canvas>
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-	var ctx = document.getElementById('canvas').getContext('2d');
+			</style>
+	</head>
+	<body>
+		<canvas id='canvas' width="576" height="576"></canvas>
+		<input type="file" id="fileInput">
+		<pre id="fileOutput"></pre>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
 		
-    var socket=io();
+//THE CANVAS ENVIRONMENT 
+	var canvas = $("#canvas")[0];
+	var ctx = canvas.getContext("2d");
+	var w = $("#canvas").width();
+	var h = $("#canvas").height();
 	
-	socket.on('image', function(info) {
+//TILE DIMENSIONS
+	var TILE_W = 48,
+		TILE_H = 48;
+	
+//CHARACTER SIZE AND SPRITE TRAVERSAL
+	var CHAR_W = 32,
+		CHAR_H = 48;
+	
+	var CHAR_SPRITE_W = 128,
+		CHAR_SPRITE_H = 192,
+		SPRITE_START_X = 0,
+		SPRITE_START_Y = 144;
+		
+	
+//FRAMES PER SECOND
+	var FPS = 33;
+	
+//OTHER VALUES
+	var GAME_FONT = "bold 24pt Lucida Console";
+	
+	var socket=io();	
+	
+//*** STATIC IMAGES FOR CREATING LEVEL ***//
+	//background of the canvas element
+	socket.on('image-bg', function(info) {
 		if (info.image) {
 			var img = new Image();
 			img.src = 'data:image/jpeg;base64,' + info.buffer;
 			ctx.drawImage(img, 0, 0);
 		}
-	});
+	});		
+	//tile block
+	socket.on('res-block-a', function(info) {
+		if (info.image) {
+			var block_img = new Image();
+			block_img.ready = false;
+			block_img.onload = setAssetReady;
+			block_img.src = 'data:image/jpeg;base64,' + info.buffer;
+			ctx.drawImage(block_img, 20, 20);
+		}
+	});	
+	//tile wall
+	socket.on('res-wall-a', function(info) {
+		if (info.image) {
+			var wall_img = new Image();
+			wall_img.ready = false;
+			wall_img.onload = setAssetReady;
+			wall_img.src = 'data:image/jpeg;base64,' + info.buffer;
+			ctx.drawImage(wall_img, 20, 20+TILE_H);
+		}
+	});	
+
+	//char sprite
+	socket.on('res-mage-spr', function(info) {
+		if (info.image) {
+			var char_sprite = new Image();
+			char_sprite.ready = false;
+			char_sprite.onload = setAssetReady;
+			char_sprite.src = 'data:image/jpeg;base64,' + info.buffer;
+			ctx.drawImage(char_sprite, 40, 40);
+		}
+	});	
 	
-  </script>
-  </body>
+//*** SET IMAGE LOADED TO READY ***//
+	function setAssetReady() {
+		this.ready = true;
+	}
+
+
+		</script>
+	</body>
 </html>

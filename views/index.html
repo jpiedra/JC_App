@@ -9,7 +9,7 @@
   </head>
   <body>
 	<div class="widewrapper main">
-		<img class="img-responsive" alt="JavaCrypt menu logo">
+		<img id="banner" class="img-responsive" alt="JavaCrypt menu logo">
 	</div>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -22,6 +22,7 @@
 		if (info.image) {
 			var logo = new Image();
 			logo.src = 'data:image/jpeg;base64,' + info.buffer;
+			$("#banner").attr("src", logo.src);
 		}
 	});
   </script>

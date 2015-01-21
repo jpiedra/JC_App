@@ -1,20 +1,43 @@
 //jc_assets.js - script will load all images for use
-		
+	var socket=io();	
+	
 //*** STATIC IMAGES FOR CREATING LEVEL ***//
-	var block_img = new Image();
-	block_img.ready = false;
-	block_img.onload = setAssetReady;
-	block_img.src = "images/tile_a_block.png";
+	//background of the canvas element
+	socket.on('image-bg', function(info) {
+		if (info.image) {
+			var img = new Image();
+			img.src = 'data:image/jpeg;base64,' + info.buffer;
+			ctx.drawImage(img, 0, 0);
+		}
+	});		
+	//tile block
+	socket.on('res-block-a', function(info) {
+		if (info.image) {
+			var block_img = new Image();
+			block_img.ready = false;
+			block_img.onload = setAssetReady;
+			block_img.src = 'data:image/jpeg;base64,' + info.buffer;
+		}
+	});	
+	//tile wall
+	socket.on('res-wall-a', function(info) {
+		if (info.image) {
+			var wall_img = new Image();
+			wall_img.ready = false;
+			wall_img.onload = setAssetReady;
+			wall_img.src = 'data:image/jpeg;base64,' + info.buffer;
+		}
+	});	
 
-	var wall_img = new Image();
-	wall_img.ready = false;
-	wall_img.onload = setAssetReady;
-	wall_img.src = "images/tile_a_wall.png";
-
-	var char_sprite = new Image();
-	char_sprite.ready = false;
-	char_sprite.onload = setAssetReady;
-	char_sprite.src = "images/player/mage/sprite_mage.png";
+	//char sprite
+	socket.on('res-mage-spr', function(info) {
+		if (info.image) {
+			var char_sprite = new Image();
+			char_sprite.ready = false;
+			char_sprite.onload = setAssetReady;
+			char_sprite.src = 'data:image/jpeg;base64,' + info.buffer;
+		}
+	});	
 	
 //*** SET IMAGE LOADED TO READY ***//
 	function setAssetReady() {
