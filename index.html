@@ -1,29 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-   <head>
-      <title>Socket.IO chat</title>
-		<style>
-	  	
-		</style>
-  </head>
-  <body>
-	<canvas id='canvas' width="576" height="576"></canvas>
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-	var ctx = document.getElementById('canvas').getContext('2d');
-		
-    var socket=io();
-	
-	socket.on('image', function(info) {
-		if (info.image) {
-			var img = new Image();
-			img.src = 'data:image/jpeg;base64,' + info.buffer;
-			ctx.drawImage(img, 0, 0);
-		}
-	});
-	
-  </script>
-  </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JavaCrypt</title>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+</head>
+<body>
+<canvas id="canvas" tabindex='1' width="576" height="576" style="background-image: url(images/texture_floor_a.png);"></canvas>
+<input type="file" id="fileInput">
+<pre id="fileOutput"></pre>
+	<script src="scripts/game/jquery.hotkeys.js"></script>
+	<script src="scripts/game/key_status.js"></script>
+	<script src="scripts/game/jc_constants.js"></script>
+	<script src="scripts/game/jc_assets.js"></script>
+	<script src="scripts/game/jc_world.js"></script>
+	<script src="scripts/game/jc_game.js"></script>
+</body>
+
 </html>
+
