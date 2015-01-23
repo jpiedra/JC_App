@@ -68,6 +68,7 @@
 	function asset_loading() {
 		
 		if (block_img.ready && wall_img.ready && char_sprite.ready) {
+			$("input").css('display', 'inline-block');
 			ctx.clearRect(0, 0, w, h);
 			ctx.drawImage(img, 0, 0);
 			clearInterval(asset_loader);

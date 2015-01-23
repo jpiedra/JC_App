@@ -3,11 +3,13 @@
 	<head>
 		<title>JavaCrypt - Game</title>
 			<style>
-	  	
+				body { background-color: black; text-align: center; }
+				input { display: none; background-color: #303030; color: #00ff00; }
 			</style>
 	</head>
 	<body>
 		<canvas id='canvas' width="576" height="576"></canvas>
+		<br>
 		<input type="file" id="fileInput">
 		<pre id="fileOutput"></pre>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -19,6 +21,5 @@
 		<script src="/public/scripts/jc_assets.js"></script>
 		<script src="/public/scripts/jc_world.js"></script>
 		<script src="/public/scripts/jc_game.js"></script>
-
 	</body>
 </html>
