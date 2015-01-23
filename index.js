@@ -2,10 +2,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var url = require('url');
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/index.html');
 	io.on('connection', function(socket){
+	fs.readFile(__dirname + '/images/menu_bg_dark.png', function(err, buf){
+		socket.emit('menu', { image: true, buffer: buf.toString('base64') });
+		console.log('menu background file is initialized');
+		});
 	fs.readFile(__dirname + '/images/logo/logo_new.png', function(err, buf){
 		socket.emit('logo', { image: true, buffer: buf.toString('base64') });
 		console.log('logo file is initialized');

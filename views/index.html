@@ -4,27 +4,60 @@
 	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	  <title>JavaCrypt - Menu</title>
 		<style>
-			body { background-color: black; }
+			body, html { height: 100%; background-color: black; text-align: center; font-family: Georgia, serif; color: white; }
+			div { text-align: center; }
+			.background { display: none; height: 100%; background-position: center top; background-size: 100% 100%; }
+			.widewrapper { width: 100%; text-align: center; }
+			.widewrapper img { display: none; max-height: 128px; max-width: 512px; height: 100%; width: 100%; }
+			h1 { display: none; font-size: 24px; }
+			.button, .button:visited { text-decoration: none; display: inline-block; background-color: #606060; color: white; font-size: 18px; width: 128px; padding: 16px; margin: 8px; border: 4px #707070 outset; border-radius: 4px; }
+			.button:hover {  text-decoration: none; color: #ff9090; }			
+			.button:active {  text-decoration: none; color: #ff9090; border: 4px #707070 inset;}			
 		</style>
   </head>
   <body>
-	<div class="widewrapper main">
-		<img id="banner" class="img-responsive" alt="JavaCrypt menu logo">
+	<div class="background">
+		<div class="widewrapper main">
+			<img id="banner"  alt="JavaCrypt menu logo">
+		</div>
+		<h1>A browser-based game by Jonathan Piedra</h1>
+		<br>
+		<h1>Menu</h1>
+		<a class="button" href="game">Start</a>
+		<br>
+		<a class="button" href="game">Upload</a>
+		<br>
+		<a class="button" href="game">About</a>
+		<br>
 	</div>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
 	var socket=io();
 	
+	socket.on('menu', function(info) {
+		if (info.image) {
+			var menubg = new Image();
+			menubg.ready = false;
+			menubg.src = 'data:image/jpeg;base64,' + info.buffer;
+			menubg.ready = true;
+			$(".background").css('background-image','url(' + menubg.src + ')').fadeIn("slow");
+		}
+	});
+	
 	socket.on('logo', function(info) {
 		if (info.image) {
 			var logo = new Image();
+			logo.ready = false;
 			logo.src = 'data:image/jpeg;base64,' + info.buffer;
-			$("#banner").attr("src", logo.src);
+			logo.ready = true;
+			$("#banner").attr("src", logo.src).fadeIn("slow");
+			$("h1").fadeIn("slow");
 		}
 	});
+		
   </script>
   </body>
 </html>
