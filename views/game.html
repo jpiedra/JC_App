@@ -13,63 +13,12 @@
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<script>
-		
-//THE CANVAS ENVIRONMENT 
-	var canvas = $("#canvas")[0];
-	var ctx = canvas.getContext("2d");
-	var w = $("#canvas").width();
-	var h = $("#canvas").height();
-	
-	var socket=io();	
-	
-//*** STATIC IMAGES FOR CREATING LEVEL ***//
-	//background of the canvas element
-	socket.on('image-bg', function(info) {
-		if (info.image) {
-			var img = new Image();
-			img.src = 'data:image/jpeg;base64,' + info.buffer;
-			ctx.drawImage(img, 0, 0);
-		}
-	});		
-	//tile block
-	socket.on('res-block-a', function(info) {
-		if (info.image) {
-			var block_img = new Image();
-			block_img.ready = false;
-			block_img.onload = setAssetReady;
-			block_img.src = 'data:image/jpeg;base64,' + info.buffer;
-			ctx.drawImage(block_img, 20, 20);
-		}
-	});	
-	//tile wall
-	socket.on('res-wall-a', function(info) {
-		if (info.image) {
-			var wall_img = new Image();
-			wall_img.ready = false;
-			wall_img.onload = setAssetReady;
-			wall_img.src = 'data:image/jpeg;base64,' + info.buffer;
-			ctx.drawImage(wall_img, 20, 20+TILE_H);
-		}
-	});	
+		<script src="/public/scripts/jquery.hotkeys.js"></script>
+		<script src="/public/scripts/key_status.js"></script>
+		<script src="/public/scripts/jc_constants.js"></script>
+		<script src="/public/scripts/jc_assets.js"></script>
+		<script src="/public/scripts/jc_world.js"></script>
+		<script src="/public/scripts/jc_game.js"></script>
 
-	//char sprite
-	socket.on('res-mage-spr', function(info) {
-		if (info.image) {
-			var char_sprite = new Image();
-			char_sprite.ready = false;
-			char_sprite.onload = setAssetReady;
-			char_sprite.src = 'data:image/jpeg;base64,' + info.buffer;
-			ctx.drawImage(char_sprite, 40, 40);
-		}
-	});	
-	
-//*** SET IMAGE LOADED TO READY ***//
-	function setAssetReady() {
-		this.ready = true;
-	}
-
-
-		</script>
 	</body>
 </html>

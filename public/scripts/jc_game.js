@@ -107,7 +107,7 @@ function beginGame() {
 	
 	function draw() {
 		ctx.clearRect(0, 0, w, h);
-				
+		ctx.drawImage(img, 0, 0);		
 		blockArr.forEach(function(tileblock) {
 			tileblock.draw();
 		}); 
