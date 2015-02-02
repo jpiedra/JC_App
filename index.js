@@ -8,7 +8,6 @@ var url = require('url');
 
 app.use("/public", express.static(__dirname + '/public'));
 
-
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/index.html');
 	io.on('connection', function(socket){
@@ -25,10 +24,7 @@ app.get('/', function(req, res){
 
 app.get('/game', function(req, res){
 	res.sendFile(__dirname + '/views/game.html');
-//	res.sendFile(__dirname + '/scripts/game/jc_constants.js');
-//	res.sendFile(__dirname + '/scripts/game/jc_assets.js');
 	io.on('connection', function(socket){
-	//i will fix this later, i *promise*
 	//background: gets applied to canvas element
 	fs.readFile(__dirname + '/images/texture_floor_a.png', function(err, buf){
 		socket.emit('image-bg', { image: true, buffer: buf.toString('base64') });
@@ -51,6 +47,11 @@ app.get('/game', function(req, res){
 		console.log('Mage sprite file is initialized');
 		});
 	});	
+});
+
+
+app.get('*', function(req, res){
+	res.sendFile(__dirname + '/views/404.html');
 });
 
 http.listen(3000, function(){
