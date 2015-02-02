@@ -1,5 +1,4 @@
 #JavaCrypt - the App
-=====
 A repository for the Node.js-powered browser game
 
 ##About
