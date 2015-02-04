@@ -61,6 +61,13 @@ function collides(a, b) {
 		a.y + a.height > b.y;	
 };
 
+function collides_sc(a, b) {
+	if (a.y <= b.y+TILE_H) player.y += 3;
+	if (a.y >= b.y-TILE_H) player.y -= 3; 
+	if (a.x >= b.x-TILE_W) player.x -= 3;	
+	if (a.x <= b.x+TILE_W) player.x += 3;
+};
+
 function collides_x(a, b) {
 	return a.x < b.x + b.width &&
 		a.x + a.width > b.x;
