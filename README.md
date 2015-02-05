@@ -1,4 +1,7 @@
 ![JavaCrypt](https://raw.githubusercontent.com/jpiedra/JC_App/master/images/logo/logo_new.png)
+[Mage]
+(https://raw.githubusercontent.com/jpiedra/JC_App/master/images/player/mage/mage_test.gif)
+
 A repository for the Node.js-powered browser game
 
 ##About
