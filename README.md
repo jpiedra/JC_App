@@ -1,4 +1,4 @@
-#JavaCrypt - the App
+![JavaCrypt](/images/logo_new.png)
 A repository for the Node.js-powered browser game
 
 ##About
