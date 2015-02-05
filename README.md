@@ -1,4 +1,4 @@
-![JavaCrypt](/images/logo_new.png)
+![JavaCrypt](http://raw.githubusercontent.com/jpiedra/JC_App/master/images/logo/logo_new.png)
 A repository for the Node.js-powered browser game
 
 ##About
