@@ -5,8 +5,16 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var url = require('url');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/levelsDB');
 
 app.use("/public", express.static(__dirname + '/public'));
+
+app.use(function(req, res, next){ 
+	req.db = db;
+	next();
+});
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/index.html');
@@ -49,6 +57,9 @@ app.get('/game', function(req, res){
 	});	
 });
 
+app.get('/upload', function(req, res){
+	res.sendFile(__dirname + '/views/upload.html');
+});
 
 app.get('*', function(req, res){
 	res.sendFile(__dirname + '/views/404.html');

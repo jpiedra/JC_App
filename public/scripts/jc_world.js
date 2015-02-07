@@ -81,13 +81,13 @@ function collides_y(a, b) {
 var parseToWorld = function(rowString, rowNum) {
 		var tiles = rowString.split();
 		for (tile = 0; tile < rowString.length; tile++){
-			if (rowString.charAt(tile) == "*"){
+			if (rowString.charAt(tile) == "o" || rowString.charAt(tile) == "O"){
 				//blockArr[tile].draw();
 				//ctx.drawImage(block_img, tile * TILE_W, rowNum * TILE_H, TILE_W, TILE_H);
 				//ctx.drawImage(wall_img, tile * TILE_W, (rowNum * TILE_H) + TILE_H, TILE_W, TILE_H);
 				blockArr.push( new tileblock(tile * TILE_W, rowNum * TILE_H) );
 				console.log("BLOCK - x: " + tile * TILE_W + " y: " + rowNum * TILE_H);
-			} else if (rowString.charAt(tile) == " ") {
+			} else if (rowString.charAt(tile) == "-") {
 				//register the valid space somehow
 				spaceArr.push( new tilespace(tile * TILE_W, rowNum * TILE_H) );
 				console.log("SPACE - x: " + tile * TILE_W + " y: " + rowNum * TILE_H);
