@@ -7,6 +7,8 @@
 	wall_img.ready = false;
 	var char_sprite = new Image();
 	char_sprite.ready = false;
+	var enemy_sprite = new Image();
+	enemy_sprite.ready = false;
 	
 	var socket=io();
 	
@@ -45,8 +47,18 @@
 			char_sprite.onload = setAssetReady;
 			char_sprite.src = 'data:image/jpeg;base64,' + info.buffer;
 		}
+	});
+
+	//enemy sprite
+	socket.on('res-skeletonmage-spr', function(info) {
+		if (info.image) {
+			//var char_sprite = new Image();
+			enemy_sprite.ready = false;
+			enemy_sprite.onload = setAssetReady;
+			enemy_sprite.src = 'data:image/jpeg;base64,' + info.buffer;
+		}
 	});	
-	
+
 //*** SET IMAGE LOADED TO READY ***//
 	function setAssetReady() {
 		this.ready = true;

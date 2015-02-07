@@ -54,6 +54,11 @@ app.get('/game', function(req, res){
 		socket.emit('res-mage-spr', { image: true, buffer: buf.toString('base64') });
 		console.log('Mage sprite file is initialized');
 		});
+	//skeleton mage sprite
+	fs.readFile(__dirname + '/images/player/skeletonmage/sprite_skeletonmage.png', function(err, buf){
+		socket.emit('res-skeletonmage-spr', { image: true, buffer: buf.toString('base64') });
+		console.log('Skeleton Mage sprite file is initialized');
+		});
 	});	
 });
 
