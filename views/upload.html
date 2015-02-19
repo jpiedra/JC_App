@@ -3,41 +3,30 @@
 	<head>
 		<title>JavaCrypt - Upload</title>
 			<style>
-				body { background-color: black; text-align: center; }
+				body { background-color: black; }
 				p { color: white }
-				input { background-color: #303030; color: #00ff00; }
+				input {  font-family: "Lucida Console", Monaco, monospace; background-color: #303030; color: #00ff00; padding: 0px; margin: 0px 0px 0px 0px; border: 0px; width: auto; }
 			</style>
 	</head>
 	<body>
 		<p>Upload a level for use in JavaCrypt, in .txt format file:</p>
 		<br>
-		<input type="file" id="levelsDB_Input">
-		<pre id="fileOutput"></pre>
-		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-		<script>
-			window.onload = function() {
-				
-				var fileInput = document.getElementById('levelsDB_Input');
-								
-				fileInput.addEventListener('change', function(e) {
-					var file = fileInput.files[0];
-					var textType = /text.*/;
-					
-					if (file.type.match(textType)) {
-						var reader = new FileReader();
-						
-						reader.onload = function(e) {
-							var lines = this.result.split('\n');
-							var level = JSON.stringify(lines);
-						}
-						reader.readAsText(file);
-					} else {
-						alert("File reading failed!");
-					}
-				});
-			};
-		</script>
+		
+			<form>
+			<input type="text" name="row1" maxlength="12"><br>
+			<input type="text" name="row2" maxlength="12"><br>
+			<input type="text" name="row3" maxlength="12"><br>
+			<input type="text" name="row4" maxlength="12"><br>
+			<input type="text" name="row5" maxlength="12"><br>
+			<input type="text" name="row6" maxlength="12"><br>
+			<input type="text" name="row7" maxlength="12"><br>
+			<input type="text" name="row8" maxlength="12"><br>
+			<input type="text" name="row9" maxlength="12"><br>
+			<input type="text" name="row10" maxlength="12"><br>
+			<input type="text" name="row11" maxlength="12"><br>
+			<input type="text" name="row12" maxlength="12"><br>
+			<input type="submit" value="Submit">
+			</form>
+			
 	</body>
 </html>

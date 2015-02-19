@@ -6,15 +6,24 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 var url = require('url');
 var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/levelsDB');
+var mongojs = require('mongojs');
+var db = mongojs('levelsDB', ['leveldata']);
+/*var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/levelsDB', function(err) {
+	if(err) {
+		console.log('mongoose connection error', err);
+	} else {
+		console.log('mongoose connection successful');
+	}
+});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+	console.log('mongoose connected to db');
+});
+var level = require('./models/level.js');*/
 
 app.use("/public", express.static(__dirname + '/public'));
-
-app.use(function(req, res, next){ 
-	req.db = db;
-	next();
-});
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/index.html');
@@ -59,13 +68,34 @@ app.get('/game', function(req, res){
 		socket.emit('res-skeletonmage-spr', { image: true, buffer: buf.toString('base64') });
 		console.log('Skeleton Mage sprite file is initialized');
 		});
-	});	
+	});
+	
+});
+
+app.get('/myLevels', function(req, res){
+	/*db.leveldata.findOne(function (err, doc) {
+		console.log(doc);
+		res.json(doc);
+	});*/
+	db.leveldata.find(function (err, docs) {
+		//console.log(docs);
+		res.json(docs);
+	});
 });
 
 app.get('/upload', function(req, res){
 	res.sendFile(__dirname + '/views/upload.html');
 });
 
+/*might not need this soon... 
+app.get('/levels', function(req, res){
+	level.find(function (err, levels) {
+		if (err) return next (err);
+		res.json(levels);
+	});
+});
+*/
+							
 app.get('*', function(req, res){
 	res.sendFile(__dirname + '/views/404.html');
 });

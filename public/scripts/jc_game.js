@@ -1,8 +1,8 @@
 function beginGame() {
-	
-	alert("begin making characters");
 	var gameloop = setInterval(draw, FPS);
-	
+	var spaceLimit = spaceArr.length;
+	var player_startIndex = Math.floor(Math.random()*spaceArr.length);
+	var enemy_startIndex;
 	
 	function collides_x (a, b) {
 		if (a.x >= b.x-TILE_W || a.x <= b.x+TILE_W) return true;
@@ -22,8 +22,8 @@ function beginGame() {
 		sprite_y: CHAR_SPRITE_H,
 		frameCurrent: 0,
 		frameLimit: 4,
-		x: spaceArr[Math.floor((Math.random() * spaceArr.length) + 0)].x,
-		y: spaceArr[Math.floor((Math.random() * spaceArr.length) + 0)].y,
+		x: spaceArr[player_startIndex].x,
+		y: spaceArr[player_startIndex].y,
 		width: CHAR_W,
 		height: CHAR_H,
 		direction: 'O',
@@ -135,8 +135,8 @@ function beginGame() {
 		I.sprite_y = CHAR_SPRITE_H;
 		I.frameCurrent = 0;
 		I.frameLimit = 4;
-		I.x = spaceArr[Math.floor((Math.random() * spaceArr.length) + 0)].x;
-		I.y = spaceArr[Math.floor((Math.random() * spaceArr.length) + 0)].y;
+		I.x = spaceArr[enemy_startIndex].x;
+		I.y = spaceArr[enemy_startIndex].y;
 		I.width = CHAR_W;
 		I.height = CHAR_H;
 		I.direction = 'O';
@@ -193,12 +193,12 @@ function beginGame() {
 				   I.rval = Math.floor((Math.random() * 7) + 1);
 				}
 			
-			if (I.rval == 5 || I.rval == 6 || I.rval == 7) {
+			if (I.rval === 5 || I.rval === 6 || I.rval === 7) {
 				I.direction = "O";
 			} 
 			
 			//simple moves: horizontal, vertical
-			if (I.rval == 2) {
+			if (I.rval === 2) {
 				I.direction = 'W';
 				I.x -= 3;
 				blockArr.forEach(function(tileblock) {
@@ -210,7 +210,7 @@ function beginGame() {
 				})
 			}
 			  
-			if (I.rval == 1) {
+			if (I.rval === 1) {
 				I.direction = 'E';
 				I.x += 3;
 				blockArr.forEach(function(tileblock) {
@@ -222,7 +222,7 @@ function beginGame() {
 				})
 			}		
 						
-			if (I.rval == 4) {
+			if (I.rval === 4) {
 				I.direction = 'N';
 				I.y -= 3;
 				blockArr.forEach(function(tileblock) {
@@ -234,7 +234,7 @@ function beginGame() {
 				})
 			}
 			  
-			if (I.rval == 3) {
+			if (I.rval === 3) {
 				I.direction = 'S';
 				I.y += 3;
 				blockArr.forEach(function(tileblock) {
@@ -252,13 +252,10 @@ function beginGame() {
 		return I;
 	}
 	
-	for (k = 0; k < 5; k++){
-		enemies.push(Enemy());
-	};
-	
 	function checkEnemies(){
 		if (enemies.length < 3){
 			while (enemies.length < 3){
+				enemy_startIndex = Math.floor(Math.random()*spaceArr.length);
 				enemies.push(Enemy());
 			}
 		}

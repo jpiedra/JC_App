@@ -1,20 +1,54 @@
-<!doctype html>
-<html>
+<!DOCTYPE>
+<html ng-app="JCApp">
 	<head>
 		<title>JavaCrypt - Game</title>
 			<style>
-				body { background-color: black; text-align: center; }
+				body { background-color: black; color: white; text-align: center; }
 				input { display: none; background-color: #303030; color: #00ff00; }
+				table { display: none; font-family: 'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace; }
 			</style>
 	</head>
 	<body>
 		<canvas id='canvas' width="576" height="576"></canvas>
 		<br>
 		<input type="file" id="fileInput">
-		<pre id="fileOutput"></pre>
+		<div ng-controller="AppCtrl">
+			<table>
+				<tbody ng-repeat="level in myLevels">
+					<tr><td>{{level.rA}}</td></tr>
+					<tr><td>{{level.rB}}</td></tr>
+					<tr><td>{{level.rC}}</td></tr>
+					<tr><td>{{level.rD}}</td></tr>
+					<tr><td>{{level.rE}}</td></tr>
+					<tr><td>{{level.rF}}</td></tr>
+					<tr><td>{{level.rG}}</td></tr>
+					<tr><td>{{level.rH}}</td></tr>
+					<tr><td>{{level.rI}}</td></tr>
+					<tr><td>{{level.rJ}}</td></tr>
+					<tr><td>{{level.rK}}</td></tr>
+					<tr><td>{{level.rL}}</td></tr>
+				</tbody>
+			</table>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+		var levelPlans;
+		
+			$(document).ready(function(){
+				$.ajax({
+					url: "./myLevels",
+					dataType: "text",
+					success: function(data) {
+						levelPlans = $.parseJSON(data);
+						parseNewWorld_JSON();
+					}
+				});
+			})
+		</script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="/public/controllers/controller.js"></script>
 		<script src="/public/scripts/jquery.hotkeys.js"></script>
 		<script src="/public/scripts/key_status.js"></script>
 		<script src="/public/scripts/jc_constants.js"></script>

@@ -43,12 +43,7 @@ function tilespace(x, y) {
 	this.height = TILE_H;
 	
 	this.active = true;
-	
-	/*ctx.globalAlpha = .5;
-	ctx.fillStyle = "#ff5050";
-	ctx.fillRect( this.x, this.y, this.width, this.height);
-	ctx.globalAlpha = 1;*/
-	
+
 	this.remove = function() {
 		this.active = false;
 	}
@@ -78,62 +73,67 @@ function collides_y(a, b) {
 		a.y + a.height > b.y;	
 };
 
-var parseToWorld = function(rowString, rowNum) {
-		var tiles = rowString.split();
-		for (tile = 0; tile < rowString.length; tile++){
-			if (rowString.charAt(tile) == "o" || rowString.charAt(tile) == "O"){
-				//blockArr[tile].draw();
-				//ctx.drawImage(block_img, tile * TILE_W, rowNum * TILE_H, TILE_W, TILE_H);
-				//ctx.drawImage(wall_img, tile * TILE_W, (rowNum * TILE_H) + TILE_H, TILE_W, TILE_H);
-				blockArr.push( new tileblock(tile * TILE_W, rowNum * TILE_H) );
-				console.log("BLOCK - x: " + tile * TILE_W + " y: " + rowNum * TILE_H);
-			} else if (rowString.charAt(tile) == "-") {
-				//register the valid space somehow
-				spaceArr.push( new tilespace(tile * TILE_W, rowNum * TILE_H) );
-				console.log("SPACE - x: " + tile * TILE_W + " y: " + rowNum * TILE_H);
-			}
+var parseNewWorld_JSON = function() {
+	//select a random index to use to generate a level:
+	var levelAmt = levelPlans.length;
+	var levelID = Math.floor(Math.random()*levelPlans.length)
+	
+	//populate array of strings from levelPlans random object, row by row
+	var levelData = [];
+	
+	levelData.push(JSON.stringify(levelPlans[levelID].rA));
+	levelData.push(JSON.stringify(levelPlans[levelID].rB));
+	levelData.push(JSON.stringify(levelPlans[levelID].rC));
+	levelData.push(JSON.stringify(levelPlans[levelID].rD));
+	levelData.push(JSON.stringify(levelPlans[levelID].rE));
+	levelData.push(JSON.stringify(levelPlans[levelID].rF));
+	levelData.push(JSON.stringify(levelPlans[levelID].rG));
+	levelData.push(JSON.stringify(levelPlans[levelID].rH));
+	levelData.push(JSON.stringify(levelPlans[levelID].rI));
+	levelData.push(JSON.stringify(levelPlans[levelID].rJ));
+	levelData.push(JSON.stringify(levelPlans[levelID].rK));
+	levelData.push(JSON.stringify(levelPlans[levelID].rL));
+	
+	//move each levelData string to rowArr, splitting it
+	//also, get rid of those double quotes
+	//then, populate a row using each rowArr element
+	var rowArr = [];
+	
+	for (var n = 0; n < levelData.length; n++){
+		rowArr.push(levelData[n].replace(/\"/g, ""));
+	}
+	
+	for (var m = 0; m < levelData.length; m++){	
+		buildRow(rowArr[m], m);
+	}
+	
+	isWorldBuilt = true;
+	
+}
+
+var buildRow = function(rowString, rowNum) {
+	var j = 0;
+	var tiles = rowString.split();
+	for (j = 0; j < 12; j++){
+		if (rowString.charAt(j) === "o" || rowString.charAt(j) === "O"){
+			blockArr.push( new tileblock(j * TILE_W, rowNum * TILE_H) );
+			console.log("BLOCK - x: " + j * TILE_W + " y: " + rowNum * TILE_H);
+		} else if (rowString.charAt(j) === "-"){
+			spaceArr.push( new tilespace(j * TILE_W, rowNum * TILE_H) );
+			console.log("SPACE - x: " + j * TILE_W + " y: " + rowNum * TILE_H);
 		}
-	};
+	}
+	//console(spaceArr.length);
+};
 
 function checkingWorld() {
 	if (isWorldBuilt) {
 		clearInterval(checkWorld);
-		alert("We're done!");
 		beginGame();
 	}
 };
 	
 window.onload = function() {
 	checkWorld = setInterval(checkingWorld, FPS);
-
-	var fileInput = document.getElementById('fileInput');
-	var fileOutput = document.getElementById('fileOutput');
-	
-	fileInput.addEventListener('change', function(e) {
-		var file = fileInput.files[0];
-		var textType = /text.*/;
-		
-		if (file.type.match(textType)) {
-			var reader = new FileReader();
-			
-			reader.onload = function(e) {
-				//fileOutput.innerText = reader.result;
-				
-				var lines = this.result.split('\n');
-				for(var line = 0; line < lines.length; line++){
-					stringArr.push(lines[line]);
-					//alert(typeof stringArr[line]);
-					//multiply by index in function
-					parseToWorld(stringArr[line], line);
-				}
-				isWorldBuilt = true;
-				
-			}
-			
-			reader.readAsText(file);
-		} else {
-			alert("File reading failed!");
-		}
-	});
 };
 
