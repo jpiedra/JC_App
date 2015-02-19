@@ -19,15 +19,35 @@ function tileblock(x, y) {
 	this.width = TILE_W;
 	this.height = TILE_H;
 	
+	this.imgID = Math.floor(Math.random() * 6);
 	this.active = true;
 	
 	this.draw = function() {
-		ctx.drawImage(block_img, this.x, this.y, this.width, this.height);
-		ctx.drawImage(wall_img, this.x, this.y+this.height, this.width, this.height);
+		if (this.imgID === 0) {
+			ctx.drawImage(b0, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
+		if (this.imgID === 1) {
+			ctx.drawImage(b1, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
+		if (this.imgID === 2) {
+			ctx.drawImage(b2, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
+		if (this.imgID === 3) {
+			ctx.drawImage(b3, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
+		if (this.imgID === 4) {
+			ctx.drawImage(b4, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
+		if (this.imgID === 5) {
+			ctx.drawImage(b5, this.x, this.y, this.width, this.height);
+			ctx.drawImage(w0, this.x, this.y+this.height, this.width, this.height);
+		};
 	}
-	
-	ctx.drawImage(block_img, this.x, this.y, this.width, this.height);
-	ctx.drawImage(wall_img, this.x, this.y+this.height, this.width, this.height);
 	
 	this.remove = function() {
 		this.active = false;
@@ -123,7 +143,6 @@ var buildRow = function(rowString, rowNum) {
 			console.log("SPACE - x: " + j * TILE_W + " y: " + rowNum * TILE_H);
 		}
 	}
-	//console(spaceArr.length);
 };
 
 function checkingWorld() {

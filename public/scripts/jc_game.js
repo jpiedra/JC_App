@@ -4,6 +4,9 @@ function beginGame() {
 	var player_startIndex = Math.floor(Math.random()*spaceArr.length);
 	var enemy_startIndex;
 	
+	var playerBullets = [];
+	var enemyBullets = [];
+	
 	function collides_x (a, b) {
 		if (a.x >= b.x-TILE_W || a.x <= b.x+TILE_W) return true;
 		else return false;
@@ -16,6 +19,8 @@ function beginGame() {
 	}
 	
 	var player = {
+		maxHealth: 100,
+		health: 100,
 		sprite_w: CHAR_SPRITE_W,
 		sprite_h: CHAR_SPRITE_H,
 		sprite_x: 0,
@@ -26,8 +31,12 @@ function beginGame() {
 		y: spaceArr[player_startIndex].y,
 		width: CHAR_W,
 		height: CHAR_H,
+		lastDir: 'o',
 		direction: 'O',
 		draw: function() {
+			ctx.font="12px Georgia";
+			ctx.fillStyle="#002f00";
+			ctx.fillText(this.health.toString() + "/" + this.maxHealth.toString(),this.x,this.y-8);
 			switch (this.direction) {
 				case "N":
 					ctx.drawImage(char_sprite, this.sprite_x, 0, this.width, this.height, this.x, this.y, this.width, this.height);
@@ -57,6 +66,18 @@ function beginGame() {
 						this.sprite_x += this.width;
 						if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
 						break;
+				case "nS":
+					ctx.drawImage(char_sprite, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+					break;
+				case "eS":
+					ctx.drawImage(char_sprite, 0, 48, this.width, this.height, this.x, this.y, this.width, this.height);
+					break;
+				case "sS":
+					ctx.drawImage(char_sprite, 0, 96, this.width, this.height, this.x, this.y, this.width, this.height);
+					break;
+				case "wS":
+					ctx.drawImage(char_sprite, 0, 144, this.width, this.height, this.x, this.y, this.width, this.height);
+					break;
 				default:
 					ctx.drawImage(char_sprite, 0, 96, this.width, this.height, this.x, this.y, this.width, this.height);
 					break;
@@ -71,11 +92,15 @@ function beginGame() {
 			player.draw();
 			player.frameCurrent++;
 			if (!keydown.left && !keydown.right && !keydown.up && !keydown.down) {
-				player.direction = "O";
+				if (player.lastDir === 'w') {player.direction = "wS"};
+				if (player.lastDir === 'e') {player.direction = "eS"};
+				if (player.lastDir === 'n') {player.direction = "nS"};
+				if (player.lastDir === 's') {player.direction = "sS"};
 			} 
 			
 			//simple moves: horizontal, vertical
 			if (keydown.left) {
+				player.lastDir = 'w';
 				player.direction = 'W';
 				player.x -= 3;
 				blockArr.forEach(function(tileblock) {
@@ -88,6 +113,7 @@ function beginGame() {
 			}
 			  
 			if (keydown.right) {
+				player.lastDir = 'e';
 				player.direction = 'E';
 				player.x += 3;
 				blockArr.forEach(function(tileblock) {
@@ -100,6 +126,7 @@ function beginGame() {
 			}		
 						
 			if (keydown.up) {
+				player.lastDir = 'n';
 				player.direction = 'N';
 				player.y -= 3;
 				blockArr.forEach(function(tileblock) {
@@ -112,6 +139,7 @@ function beginGame() {
 			}
 			  
 			if (keydown.down) {
+				player.lastDir = 's';
 				player.direction = 'S';
 				player.y += 3;
 				blockArr.forEach(function(tileblock) {

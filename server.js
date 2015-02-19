@@ -49,14 +49,34 @@ app.get('/game', function(req, res){
 		});
 	//image resources: get used in the actual game
 	//tile block
-	fs.readFile(__dirname + '/images/tile_a_block.png', function(err, buf){
-		socket.emit('res-block-a', { image: true, buffer: buf.toString('base64') });
-		console.log('Tile A block file is initialized');
+	fs.readFile(__dirname + '/images/tile/stone_0.png', function(err, buf){
+		socket.emit('res-block-0', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_0 file is initialized');
+		});
+	fs.readFile(__dirname + '/images/tile/stone_1.png', function(err, buf){
+		socket.emit('res-block-1', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_1 file is initialized');
+		});
+	fs.readFile(__dirname + '/images/tile/stone_2.png', function(err, buf){
+		socket.emit('res-block-2', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_2 file is initialized');
+		});
+	fs.readFile(__dirname + '/images/tile/stone_3.png', function(err, buf){
+		socket.emit('res-block-3', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_3 file is initialized');
+		});
+	fs.readFile(__dirname + '/images/tile/stone_4.png', function(err, buf){
+		socket.emit('res-block-4', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_4 file is initialized');
+		});
+	fs.readFile(__dirname + '/images/tile/stone_5.png', function(err, buf){
+		socket.emit('res-block-5', { image: true, buffer: buf.toString('base64') });
+		console.log('Block stone_5 file is initialized');
 		});
 	//tile wall
-	fs.readFile(__dirname + '/images/tile_a_wall.png', function(err, buf){
-		socket.emit('res-wall-a', { image: true, buffer: buf.toString('base64') });
-		console.log('Tile A wall file is initialized');
+	fs.readFile(__dirname + '/images/tile/stone_0_wall.png', function(err, buf){
+		socket.emit('res-wall-0', { image: true, buffer: buf.toString('base64') });
+		console.log('Wall stone_0 file is initialized');
 		});
 	//mage sprite
 	fs.readFile(__dirname + '/images/player/mage/sprite_mage.png', function(err, buf){
