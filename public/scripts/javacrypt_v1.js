@@ -56,6 +56,10 @@ var JCGA_V1 = (function() {
 	
 	char_sprite 		= new Image();
 	char_sprite.ready 	= false;
+	
+	char_bullet_sprite 			= new Image();
+	char_bullet_sprite.ready 	= false;
+	
 	enemy_sprite 		= new Image();
 	enemy_sprite.ready 	= false;
 	
@@ -129,6 +133,15 @@ var JCGA_V1 = (function() {
 			char_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
 		};
 	});
+	
+	//CHARACTER BULLET SPRITE
+	socket.on('res-mage-bullet-spr', function(info) {
+		if (info.image) {
+			char_bullet_sprite.ready 	= false;
+			char_bullet_sprite.onload 	= setAssetReady;
+			char_bullet_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
+		};
+	});
 
 	//SKELETON MAGE SPRITE
 	socket.on('res-skeletonmage-spr', function(info) {
@@ -166,7 +179,8 @@ var JCGA_V1 = (function() {
 	asset_loader 		= setInterval(asset_loading, 30);
 	
 	function asset_loading() {
-		if (b0.ready && b1.ready && b2.ready && b3.ready && b4.ready && b5.ready && w0.ready && char_sprite.ready) {
+		if (b0.ready && b1.ready && b2.ready && b3.ready && b4.ready && b5.ready && w0.ready && char_sprite.ready && char_bullet_sprite.ready &&
+			enemy_sprite.ready) {
 			stoneBlocks_arr.push(imgLoader(b0));
 			stoneBlocks_arr.push(imgLoader(b1));
 			stoneBlocks_arr.push(imgLoader(b3));
@@ -340,13 +354,15 @@ var JCGA_V1 = (function() {
 	};
 	
 	function beginGame() {
-		gameloop 	= setInterval(draw, FPS);
+		gameloop 	= setInterval(renderGame, FPS);
 		spaceLimit 	= spaceArr.length;
 		player_startIndex 	= Math.floor(Math.random()*spaceArr.length);
 		enemy_startIndex 	= 0;
 		
 		playerBullets 	= [];
 		enemyBullets 	= [];
+		
+		gamescore = 0;
 		
 		function collides(a, b) {
 			return a.x < b.x + b.width &&
@@ -432,7 +448,6 @@ var JCGA_V1 = (function() {
 			},
 			
 			move: function() {
-				
 				prior_x = player.x;
 				prior_y = player.y;	
 				
@@ -497,29 +512,81 @@ var JCGA_V1 = (function() {
 						};
 					})
 				};
+				
+				if (keydown.space) {
+					player.shoot();
+					keydown.space = false;
+				};
 			},
 			
 			shoot: function() {
-				//make this shoot!
+				playerBullets.push(playerBullet());
 			}
 		}
 		
-		function playerBullet(I, direction) {
+		function playerBullet(I) {
+			I = I || {};
 			I.active = true;
-			I.dir = direction;
+			I.dir = player.direction;
 			I.velocity = 10;
 			I.width = 8;
 			I.height = 8;
-			I.x = player.x+(player.x/2);
-			I.y = player.y+(player.y/2);
+			I.x = player.x+11;
+			I.y = player.y+24;
 			I.color = "#000";
+			I.frameCurrent = 0;
+			I.frameLimit = 4;
+			I.sprite_w = 32;
+			I.sprite_x = 0;
 			
 			I.draw = function() {
-				canvas.fillStyle = this.color;
-				canvas.fillRect(this.x, this.y, this.width, this.height);
+				switch (this.dir) {
+					case "nS":
+					case "N":
+						ctx.drawImage(char_bullet_sprite, this.sprite_x, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+						if (this.frameCurrent > this.frameLimit) {
+							this.frameCurrent = 0;
+							this.sprite_x += this.width;
+							if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
+							break;
+					case "eS":
+					case "E":
+						ctx.drawImage(char_bullet_sprite, this.sprite_x, 8, this.width, this.height, this.x, this.y, this.width, this.height);
+						if (this.frameCurrent > this.frameLimit) {
+							this.frameCurrent = 0;
+							this.sprite_x += this.width;
+							if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
+							break;
+					case "sS":
+					case "S":
+						ctx.drawImage(char_bullet_sprite, this.sprite_x, 16, this.width, this.height, this.x, this.y, this.width, this.height);
+						if (this.frameCurrent > this.frameLimit) {
+							this.frameCurrent = 0;
+							this.sprite_x += this.width;
+							if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
+							break;
+					case "wS":
+					case "W":
+						ctx.drawImage(char_bullet_sprite, this.sprite_x, 24, this.width, this.height, this.x, this.y, this.width, this.height);
+						if (this.frameCurrent > this.frameLimit) {
+							this.frameCurrent = 0;
+							this.sprite_x += this.width;
+							if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
+							break;
+					default:
+						ctx.drawImage(char_bullet_sprite, this.sprite_x, 16, this.width, this.height, this.x, this.y, this.width, this.height);
+						if (this.frameCurrent > this.frameLimit) {
+							this.frameCurrent = 0;
+							this.sprite_x += this.width;
+							if (this.sprite_x >= this.sprite_w) this.sprite_x = 0; }
+							break;
+					};
+				
 			};
 			
 			I.update = function() {
+				this.frameCurrent++;
+				this.draw();
 				if (this.dir === "N" ||this.dir === "n" || this.dir === "nS") { 
 					this.y -= this.velocity; 
 				};
@@ -529,9 +596,23 @@ var JCGA_V1 = (function() {
 				if (this.dir === "W" || this.dir === "w" || this.dir === "wS") { 
 					this.x -= this.velocity; 
 				};
-				if (this.dir === "S" || this.dir === "s" || this.dir === "sS") { 
+				if (this.dir === "S" || this.dir === "s" || this.dir === "sS" || this.dir === "O") { 
 					this.y += this.velocity; 
 				};
+				//collision against the world
+				blockArr.forEach(function(tileblock){
+					if (collides(I, tileblock)){
+						I.active = false;
+					};
+				});
+				//collision against enemies
+				enemies.forEach(function(Enemy){
+					if (collides(I, Enemy)){
+						Enemy.active = false;
+						I.active = false;
+						gamescore += 50;
+					};
+				});
 			};
 			
 			return I;
@@ -675,9 +756,9 @@ var JCGA_V1 = (function() {
 			};
 		};
 		
-		function draw() {
+		function renderGame() {
 			ctx.clearRect(0, 0, w, h);
-			ctx.drawImage(bg_img, 0, 0);		
+			ctx.drawImage(bg_img, 0, 0);
 			blockArr.forEach(function(tileblock) {
 				tileblock.draw();
 			}); 
@@ -685,7 +766,19 @@ var JCGA_V1 = (function() {
 			enemies.forEach(function(Enemy){
 				Enemy.randomMove();
 			});
+			enemies = enemies.filter(function(Enemy){
+				return Enemy.active;
+			});
+			playerBullets.forEach(function(playerBullet){
+				playerBullet.update();
+			});
+			playerBullets = playerBullets.filter(function(playerBullet){
+				return playerBullet.active;
+			});
 			player.move();
+			ctx.fillStyle = "#000";
+			ctx.font = GAME_FONT;
+			ctx.fillText("Score: " + gamescore.toString(), 16, 32);
 		};
 		
 	};
