@@ -7,7 +7,7 @@ var fs = require('fs');
 var url = require('url');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
-var db = mongojs('levelsDB', ['leveldata']);
+var db = mongojs('mongodb://javacrypt_testing:basedcrockford@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
 /*var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/levelsDB', function(err) {
 	if(err) {
