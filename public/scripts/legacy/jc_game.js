@@ -150,7 +150,44 @@ function beginGame() {
 					}
 				})
 			}
+		},
+		
+		shoot: function() {
+			//make this shoot!
 		}
+	}
+	
+	function playerBullet(I, direction) {
+		I.active = true;
+		I.dir = direction;
+		I.velocity = 10;
+		I.width = 8;
+		I.height = 8;
+		I.x = player.x+(player.x/2);
+		I.y = player.y+(player.y/2);
+		I.color = "#000";
+		
+		I.draw = function() {
+			canvas.fillStyle = this.color;
+			canvas.fillRect(this.x, this.y, this.width, this.height);
+		};
+		
+		I.update = function() {
+			if (this.dir === "N" ||this.dir === "n" || this.dir === "nS") { 
+				this.y -= this.velocity; 
+			};
+			if (this.dir === "E" || this.dir === "e" || this.dir === "eS") { 
+				this.x += this.velocity; 
+			};
+			if (this.dir === "W" || this.dir === "w" || this.dir === "wS") { 
+				this.x -= this.velocity; 
+			};
+			if (this.dir === "S" || this.dir === "s" || this.dir === "sS") { 
+				this.y += this.velocity; 
+			};
+		};
+		
+		return I;
 	}
 	
 	enemies = [];
