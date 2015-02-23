@@ -1,4 +1,4 @@
-var JCGA_V1 = (function() {
+JCGA_V1 = (function() {
 	//*** 	Constant Values: 	Keep these embedded directly in the  app object
 	//***						as they are to accessed more frequently than other members 
 	//THE CANVAS ENVIRONMENT 
@@ -159,7 +159,7 @@ var JCGA_V1 = (function() {
 
 	//LOAD EACH IMAGE IN THE ARRAY
 	imgLoader 	= function (img_param) {
-		var img 	= new Image();
+		img 	= new Image();
 		img.ready 	= false;
 		img.onload 	= setAssetReady;
 		img.src 	= img_param.src;
@@ -522,7 +522,7 @@ var JCGA_V1 = (function() {
 			shoot: function() {
 				playerBullets.push(playerBullet());
 			}
-		}
+		};
 		
 		function playerBullet(I) {
 			I = I || {};
@@ -616,7 +616,7 @@ var JCGA_V1 = (function() {
 			};
 			
 			return I;
-		}
+		};
 		
 		enemies = [];
 		
