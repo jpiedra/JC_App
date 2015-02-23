@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "JavaCrypt Game App",
   "dependencies": {
+    "body-parser": "^1.12.0",
     "express": "^4.11.0",
-    "socket.io": "^1.2.1",
-	"mongodb": "*",
-	"monk": "*",
-	"mongoose": "*",
-	"mongojs": "*"
+    "mongodb": "*",
+    "mongojs": "*",
+    "mongoose": "*",
+    "monk": "*",
+    "socket.io": "^1.2.1"
   }
 }

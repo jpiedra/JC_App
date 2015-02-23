@@ -5,25 +5,13 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var url = require('url');
+var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://javacrypt_testing:basedcrockford@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
-/*var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/levelsDB', function(err) {
-	if(err) {
-		console.log('mongoose connection error', err);
-	} else {
-		console.log('mongoose connection successful');
-	}
-});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-	console.log('mongoose connected to db');
-});
-var level = require('./models/level.js');*/
 
 app.use("/public", express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/index.html');
@@ -98,28 +86,21 @@ app.get('/game', function(req, res){
 });
 
 app.get('/myLevels', function(req, res){
-	/*db.leveldata.findOne(function (err, doc) {
-		console.log(doc);
-		res.json(doc);
-	});*/
 	db.leveldata.find(function (err, docs) {
-		//console.log(docs);
 		res.json(docs);
+	});
+});
+
+app.post('/myLevels', function(req, res){
+	console.log(req.body);
+	db.leveldata.insert(req.body, function(err, doc) {
+		res.json(doc);
 	});
 });
 
 app.get('/upload', function(req, res){
 	res.sendFile(__dirname + '/views/upload.html');
 });
-
-/*might not need this soon... 
-app.get('/levels', function(req, res){
-	level.find(function (err, levels) {
-		if (err) return next (err);
-		res.json(levels);
-	});
-});
-*/
 							
 app.get('*', function(req, res){
 	res.sendFile(__dirname + '/views/404.html');
