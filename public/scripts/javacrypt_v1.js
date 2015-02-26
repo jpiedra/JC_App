@@ -2,68 +2,68 @@ JCGA_V1 = (function() {
 	//*** 	Constant Values: 	Keep these embedded directly in the  app object
 	//***						as they are to accessed more frequently than other members 
 	//THE CANVAS ENVIRONMENT 
-	canvas 			= $("#canvas")[0];
-	ctx 			= canvas.getContext("2d");
-	w 				= $("#canvas").width();
-	h 				= $("#canvas").height();
+	var canvas 			= $("#canvas")[0];
+	var ctx 			= canvas.getContext("2d");
+	var w 				= $("#canvas").width();
+	var h 				= $("#canvas").height();
 		
 	//TILE DIMENSIONS
-	TILE_W 			= 48;
-	TILE_H 			= 48;
+	var TILE_W 			= 48;
+	var TILE_H 			= 48;
 		
 	//CHARACTER SIZE AND SPRITE TRAVERSAL
-	CHAR_W 			= 32;
-	CHAR_H 			= 48;
+	var CHAR_W 			= 32;
+	var CHAR_H 			= 48;
 		
-	CHAR_SPRITE_W 	= 128;
-	CHAR_SPRITE_H 	= 192;
-	SPRITE_START_X 	= 0;
-	SPRITE_START_Y 	= 144;
+	var CHAR_SPRITE_W 	= 128;
+	var CHAR_SPRITE_H 	= 192;
+	var SPRITE_START_X 	= 0;
+	var SPRITE_START_Y 	= 144;
 			
 		
 	//FRAMES PER SECOND
-	FPS 			= 30;
+	var FPS 			= 30;
 		
 	//OTHER VALUES
-	GAME_FONT 		= "bold 24pt Lucida Console";
+	var GAME_FONT 		= "bold 24pt Lucida Console";
 
 	//*** 	Static Images: 	used in rendering the game
-	stoneBlocks_arr = [];
+	var stoneBlocks_arr = [];
 	
-	bg_img 			= new Image();
+	var bg_img 			= new Image();
 	bg_img.ready 	= false;
 	
-	b0 				= new Image();
+	var b0 				= new Image();
 	b0.ready 		= false;
 	
-	b1				= new Image();
+	var b1				= new Image();
 	b1.ready 		= false;
 	
-	b2 				= new Image();
+	var b2 				= new Image();
 	b2.ready 		= false;
 	
-	b3 				= new Image();
+	var b3 				= new Image();
 	b3.ready 		= false;
 	
-	b4 				= new Image();
+	var b4 				= new Image();
 	b4.ready 		= false;
 	
-	b5 				= new Image();
+	var b5 				= new Image();
 	b5.ready 		= false;
 	
-	w0 				= new Image();
+	var w0 				= new Image();
 	w0.ready 		= false;
 	
-	char_sprite 		= new Image();
+	var char_sprite 		= new Image();
 	char_sprite.ready 	= false;
 	
-	char_bullet_sprite 			= new Image();
+	var char_bullet_sprite 			= new Image();
 	char_bullet_sprite.ready 	= false;
 	
-	enemy_sprite 		= new Image();
+	var enemy_sprite 		= new Image();
 	enemy_sprite.ready 	= false;
 	
-	socket			= io();
+	var socket			= io();
 	
 	//BACKGROUND OF THE GAME
 	socket.on('image-bg', function(info) {
@@ -158,8 +158,8 @@ JCGA_V1 = (function() {
 	};
 
 	//LOAD EACH IMAGE IN THE ARRAY
-	imgLoader 	= function (img_param) {
-		img 	= new Image();
+	var imgLoader 	= function (img_param) {
+		var img 	= new Image();
 		img.ready 	= false;
 		img.onload 	= setAssetReady;
 		img.src 	= img_param.src;
@@ -175,10 +175,10 @@ JCGA_V1 = (function() {
 	ctx.font 			= GAME_FONT;
 	ctx.fillText("Loading game assets...", 0+12, h-12);
 	
-	canRun 				= false;
-	asset_loader 		= setInterval(asset_loading, 30);
+	var canRun 				= false;
+	var asset_loader 		= setInterval(asset_loading, 30);
 	
-	function asset_loading() {
+	var asset_loading = function() {
 		if (b0.ready && b1.ready && b2.ready && b3.ready && b4.ready && b5.ready && w0.ready && char_sprite.ready && char_bullet_sprite.ready &&
 			enemy_sprite.ready) {
 			stoneBlocks_arr.push(imgLoader(b0));
@@ -197,20 +197,20 @@ JCGA_V1 = (function() {
 	//*** Parse JSON Level Data: 	functions and members used for level processing
 	// 								Begin by parsing a simple schematic text file for a map
 	//CONTAINERS FOR LEVEL OBJECTS, TEXTUAL REPRESENTATION AND THEN PROCESSED OBJECTS
-	stringArr 		= [];
-	blockArr 		= [];
-	spaceArr 		= [];
+	var stringArr 		= [];
+	var blockArr 		= [];
+	var spaceArr 		= [];
 	
 	//REFERENCE VARIABLE, AND CONTAINER FOR TEXT INFORMATION OF LEVEL DATA
-	rowArr 			= [];
-	levelData 		= [];
+	var rowArr 			= [];
+	var levelData 		= [];
 	
 	//SENTINELS, MODIFIED ONCE CRUCIAL TASKS ARE COMPLETED TO BROADCAST NEW EVENTS
-	checkWorld 		= false;
-	isWorldBuilt	= false;
+	var checkWorld 		= false;
+	var isWorldBuilt	= false;
 	
 	//TILEBLOCK OBJECT: 	a colliding block 
-	function tileblock(x, y) {
+	var tileblock = function(x, y) {
 		this.x 	= x;
 		this.y 	= y;
 		
@@ -257,7 +257,7 @@ JCGA_V1 = (function() {
 	
 	//TILESPACE OBJECT: 	an empty space charaters can walk on
 	//						doesn't get rendered, but used for positioning/AI purposes
-	function tilespace(x, y) {
+	var tilespace = function(x, y) {
 		this.x 	= x;
 		this.y 	= y;
 		
@@ -273,63 +273,26 @@ JCGA_V1 = (function() {
 	
 	//COLLISION METHODS: 	used to test if actors are colliding in certain conditions:
 	//						in the following order: basic box, x-axis, and y-axis collisions.
-	function collides(a, b) {
+	var collides = function(a, b) {
 		return a.x < b.x + b.width &&
 			a.x + a.width > b.x &&
 			a.y < b.y + b.height &&
 			a.y + a.height > b.y;	
 	};
 		
-	function collides_x(a, b) {
+	var collides_x = function(a, b) {
 		return a.x < b.x + b.width &&
 			a.x + a.width > b.x;
 	};
 
-	function collides_y(a, b) {
+	var collides_y = function(a, b) {
 		return a.y < b.y + b.height &&
 			a.y + a.height > b.y;	
 	};
 	
-	parseNewWorld_JSON = function() {
-		//select a random index to use to generate a level:
-		if(typeof levelPlans === 'undefined') {
-			levelPlans = levelPlans_JSON;
-		};
-		levelAmt 	= levelPlans.length;
-		levelID 	= Math.floor(Math.random()*levelPlans.length)
-		
-		levelData.push(JSON.stringify(levelPlans[levelID].rA));
-		levelData.push(JSON.stringify(levelPlans[levelID].rB));
-		levelData.push(JSON.stringify(levelPlans[levelID].rC));
-		levelData.push(JSON.stringify(levelPlans[levelID].rD));
-		levelData.push(JSON.stringify(levelPlans[levelID].rE));
-		levelData.push(JSON.stringify(levelPlans[levelID].rF));
-		levelData.push(JSON.stringify(levelPlans[levelID].rG));
-		levelData.push(JSON.stringify(levelPlans[levelID].rH));
-		levelData.push(JSON.stringify(levelPlans[levelID].rI));
-		levelData.push(JSON.stringify(levelPlans[levelID].rJ));
-		levelData.push(JSON.stringify(levelPlans[levelID].rK));
-		levelData.push(JSON.stringify(levelPlans[levelID].rL));
-		
-		//move each levelData string to rowArr, splitting it
-		//also, get rid of those double quotes
-		//then, populate a row using each rowArr element
-				
-		for (var n = 0; n < levelData.length; n++){
-			rowArr.push(levelData[n].replace(/\"/g, ""));
-		}
-		
-		for (var m = 0; m < levelData.length; m++){	
-			buildRow(rowArr[m], m);
-		}
-		
-		isWorldBuilt = true;
-		
-	};
-
-	buildRow = function(rowString, rowNum) {
-		j = 0;
-		tiles = rowString.split();
+	var buildRow = function(rowString, rowNum) {
+		var j = 0;
+		var tiles = rowString.split();
 		for (j = 0; j < 12; j++){
 			if (rowString.charAt(j) === "o" || rowString.charAt(j) === "O"){
 				blockArr.push( new tileblock(j * TILE_W, rowNum * TILE_H) );
@@ -342,7 +305,7 @@ JCGA_V1 = (function() {
 	};
 	
 	
-	function checkingWorld() {
+	var checkingWorld = function() {
 		if (isWorldBuilt) {
 			clearInterval(checkWorld);
 			beginGame();
@@ -353,7 +316,7 @@ JCGA_V1 = (function() {
 		checkWorld = setInterval(checkingWorld, FPS);
 	};
 	
-	function beginGame() {
+	var beginGame = function() {
 		gameloop 	= setInterval(renderGame, FPS);
 		spaceLimit 	= spaceArr.length;
 		player_startIndex 	= Math.floor(Math.random()*spaceArr.length);
@@ -381,7 +344,7 @@ JCGA_V1 = (function() {
 			else return false;
 		};
 		
-		player = {
+		var player = {
 			maxHealth: 100,
 			health: 100,
 			sprite_w: CHAR_SPRITE_W,
@@ -783,6 +746,44 @@ JCGA_V1 = (function() {
 		
 	};
 
+	return {
+		parseNewWorld_JSON : function() {
+			//select a random index to use to generate a level:
+			if(typeof levelPlans === 'undefined') {
+				levelPlans = levelPlans_JSON;
+			};
+			var levelAmt 	= levelPlans.length;
+			var levelID 	= Math.floor(Math.random()*levelPlans.length)
+			
+			levelData.push(JSON.stringify(levelPlans[levelID].rA));
+			levelData.push(JSON.stringify(levelPlans[levelID].rB));
+			levelData.push(JSON.stringify(levelPlans[levelID].rC));
+			levelData.push(JSON.stringify(levelPlans[levelID].rD));
+			levelData.push(JSON.stringify(levelPlans[levelID].rE));
+			levelData.push(JSON.stringify(levelPlans[levelID].rF));
+			levelData.push(JSON.stringify(levelPlans[levelID].rG));
+			levelData.push(JSON.stringify(levelPlans[levelID].rH));
+			levelData.push(JSON.stringify(levelPlans[levelID].rI));
+			levelData.push(JSON.stringify(levelPlans[levelID].rJ));
+			levelData.push(JSON.stringify(levelPlans[levelID].rK));
+			levelData.push(JSON.stringify(levelPlans[levelID].rL));
+			
+			//move each levelData string to rowArr, splitting it
+			//also, get rid of those double quotes
+			//then, populate a row using each rowArr element
+					
+			for (var n = 0; n < levelData.length; n++){
+				rowArr.push(levelData[n].replace(/\"/g, ""));
+			}
+			
+			for (var m = 0; m < levelData.length; m++){	
+				buildRow(rowArr[m], m);
+			}
+			
+			isWorldBuilt = true;
+		}
+	};
+	
 })();
 
 

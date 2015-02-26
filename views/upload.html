@@ -1,107 +1,168 @@
 <!DOCTYPE>
 <html ng-app="JCApp">
 	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/css/JCA_Theme.css">
 		<title>JavaCrypt - Upload</title>
-			<style>
-				body { background-color: black; }
-				div { color: white; text-align: center;  font-family: Georgia, Times, 'Times New Roman', serif; }
-				p { color: white }
-				input {  height: 20px; font-family: "Lucida Console", Monaco, monospace; background-color: #303030; color: #00ff00; padding: 0px; margin: 0px 0px 0px 0px; border: 0px; width: auto; }
-				.upload-success { font-family: "Lucida Console", Monaco, monospace; color: green; };
-			</style>
 	</head>
+	<style>
+		body { background-color: black; color: white }
+		div { font-family: Georgia, Times, 'Times New Roman', serif; }
+		.form-control {  font-family: "Lucida Console", Monaco, monospace; font-size: 20px; background-color: #303030; color: #00ff00; padding: 0px; margin: 0px 0px 0px 0px; border: 0px; width: auto; }
+		.upload-success { font-family: "Lucida Console", Monaco, monospace; color: green; };
+		.form-group { margin-bottom: 0px; }
+	</style>
 	<body>
-		<div ng-controller="AppCtrl">
-			<h1>Upload a level for use in JavaCrypt</h1>
-			<p>JavaCrypt levels follow a format of 12 rows containing 12 tiles (at 48 pixels height/width each).</p>
-			<p>This regular format makes uploading levels to use in-game easy to do.</p>
-			<h2>Instructions</h2>
-			<p>The following characters will be processed as wall blocks: O, o</p>
-			<p>The following character will be processed as empty, traversable space: -</p>
-			<p>When you have entered 12 such characters for every row, the level plan is complete. </p>
-			<p>You can press 'Submit Level' below to submit the plan.</p>
-			<form class="upload-form">
-				<input type="text" id="rA" class="row1" maxlength="12" ng-model="level.rA"><br>
-				<input type="text" id="rB" class="row2" maxlength="12" ng-model="level.rB"><br>
-				<input type="text" id="rC" class="row3" maxlength="12" ng-model="level.rC"><br>
-				<input type="text" id="rD" class="row4" maxlength="12" ng-model="level.rD"><br>
-				<input type="text" id="rE" class="row5" maxlength="12" ng-model="level.rE"><br>
-				<input type="text" id="rF" class="row6" maxlength="12" ng-model="level.rF"><br>
-				<input type="text" id="rG" class="row7" maxlength="12" ng-model="level.rG"><br>
-				<input type="text" id="rH" class="row8" maxlength="12" ng-model="level.rH"><br>
-				<input type="text" id="rI" class="row9" maxlength="12" ng-model="level.rI"><br>
-				<input type="text" id="rJ" class="row10" maxlength="12" ng-model="level.rJ"><br>
-				<input type="text" id="rK" class="row11" maxlength="12" ng-model="level.rK"><br>
-				<input type="text" id="rL" class="row12" maxlength="12" ng-model="level.rL"><br>
-				<button ng-click="addLevel()">Submit Level</button>
+		<nav class="navbar navbar-inverse" style="margin-bottom: 0px;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">JavaCrypt</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/">Menu</a></li>
+					<li><a href="/game">Game</a></li>
+					<li><a href="/upload">Upload</a></li>
+				</ul>	
+			</div>
+		</nav>
+		<div class="container-fluid" ng-controller="AppCtrl">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+				<form class="form-horizontal" role="form">
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rA">Row 1:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rA" maxlength="12" ng-model="level.rA">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+					
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rB">Row 2:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rB" maxlength="12" ng-model="level.rB">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rC">Row 3:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rC" maxlength="12" ng-model="level.rC">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rD">Row 4:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rD" maxlength="12" ng-model="level.rD">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rE">Row 5:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rE" maxlength="12" ng-model="level.rE">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rF">Row 6:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rF" maxlength="12" ng-model="level.rF">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rG">Row 7:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rG" maxlength="12" ng-model="level.rG">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rH">Row 8:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rH" maxlength="12" ng-model="level.rH">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rI">Row 9:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rI" maxlength="12" ng-model="level.rI">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rJ">Row 10:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rJ" maxlength="12" ng-model="level.rJ">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 1px">
+						<label class="control-label col-sm-4" for="rK">Row 11:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rK" maxlength="12" ng-model="level.rK">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>
+
+					<div class="form-group" style="margin-bottom: 4px">
+						<label class="control-label col-sm-4" for="rL">Row 12:</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="rL" maxlength="12" ng-model="level.rL">
+							</div>
+							<div class="col-sm-4">
+							</div>
+					</div>	
 				
-			</form>
+					<div class="form-group">
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+						<div class="col-sm-4">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-2">
+			</div>
 		</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
 	<script src="/public/controllers/controller.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('.row1').keydown(function(key) {
+			$("#rA").attr("id").keydown(function(key) {
 				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
 					return true;
 				} else key.preventDefault();
 			});
-			$('.row2').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row3').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row4').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row5').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row6').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row7').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row8').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row9').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row10').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row11').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
-			$('.row12').keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
-					return true;
-				} else key.preventDefault();
-			});
+		
 		});
 	</script>
 	</body>
