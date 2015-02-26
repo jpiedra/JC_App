@@ -25,144 +25,157 @@
 				</ul>	
 			</div>
 		</nav>
-		<div class="container-fluid" ng-controller="AppCtrl">
-			<div class="col-md-2">
+		<div class="container-fluid" ng-controller="AppCtrl" style="padding-left: 5%; padding-right: 5%;">
+			<div class="row" style="text-align: center">
+				<div class="page-header">
+					<h1>Upload a level for use in JavaCrypt</h1>
+				</div>
 			</div>
-			<div class="col-md-8">
-				<form class="form-horizontal" role="form">
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rA">Row 1:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rA" maxlength="12" ng-model="level.rA">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
+			<div class="row">	
+				<div class="col-md-6">
+					<p>JavaCrypt levels follow a format of 12 rows containing 12 tiles (at 48 pixels height/width each).</p>
+					<p>This regular format makes uploading levels to use in-game easy to do.</p>
+					<h2>Instructions</h2>
+					<p>The following characters will be processed as wall blocks: O, o</p>
+					<p>The following character will be processed as empty, traversable space: -</p>
+					<p>When you have entered 12 such characters for every row, the level plan is complete. </p>
+					<p>You can press 'Submit Level' below to submit the plan.</p>
+				</div>
+				<div class="col-md-6">
+					<form class="form-horizontal" role="form">
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rA">Row 1:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rA" maxlength="12" ng-model="level.rA">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+						
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rB">Row 2:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rB" maxlength="12" ng-model="level.rB">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rC">Row 3:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rC" maxlength="12" ng-model="level.rC">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rD">Row 4:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rD" maxlength="12" ng-model="level.rD">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rE">Row 5:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rE" maxlength="12" ng-model="level.rE">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rF">Row 6:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rF" maxlength="12" ng-model="level.rF">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rG">Row 7:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rG" maxlength="12" ng-model="level.rG">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rH">Row 8:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rH" maxlength="12" ng-model="level.rH">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rI">Row 9:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rI" maxlength="12" ng-model="level.rI">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rJ">Row 10:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rJ" maxlength="12" ng-model="level.rJ">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 1px">
+							<label class="control-label col-sm-4" for="rK">Row 11:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rK" maxlength="12" ng-model="level.rK">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>
+
+						<div class="form-group" style="margin-bottom: 4px">
+							<label class="control-label col-sm-4" for="rL">Row 12:</label>
+								<div class="col-sm-4">
+									<input class="form-control" type="text" id="rL" maxlength="12" ng-model="level.rL">
+								</div>
+								<div class="col-sm-4">
+								</div>
+						</div>	
 					
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rB">Row 2:</label>
+						<div class="form-group">
 							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rB" maxlength="12" ng-model="level.rB">
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-default" ng-click="addLevel()">Submit</button>
 							</div>
 							<div class="col-sm-4">
 							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rC">Row 3:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rC" maxlength="12" ng-model="level.rC">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rD">Row 4:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rD" maxlength="12" ng-model="level.rD">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rE">Row 5:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rE" maxlength="12" ng-model="level.rE">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rF">Row 6:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rF" maxlength="12" ng-model="level.rF">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rG">Row 7:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rG" maxlength="12" ng-model="level.rG">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rH">Row 8:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rH" maxlength="12" ng-model="level.rH">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rI">Row 9:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rI" maxlength="12" ng-model="level.rI">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rJ">Row 10:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rJ" maxlength="12" ng-model="level.rJ">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 1px">
-						<label class="control-label col-sm-4" for="rK">Row 11:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rK" maxlength="12" ng-model="level.rK">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>
-
-					<div class="form-group" style="margin-bottom: 4px">
-						<label class="control-label col-sm-4" for="rL">Row 12:</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" id="rL" maxlength="12" ng-model="level.rL">
-							</div>
-							<div class="col-sm-4">
-							</div>
-					</div>	
-				
-					<div class="form-group">
-						<div class="col-sm-4">
 						</div>
-						<div class="col-sm-4">
-							<button type="submit" class="btn btn-default">Submit</button>
-						</div>
-						<div class="col-sm-4">
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-2">
+					</form>
+				</div>
 			</div>
 		</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
 	<script src="/public/controllers/controller.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("#rA").attr("id").keydown(function(key) {
-				if (key.which == 79 || key.which == 189 || key.which == 9 || key.which == 16 || key.which == 8 || key.which || 46) {
+			$( "#rA,#rB,#rC,#rD,#rE,#rF,#rG,#rH,#rI,#rJ,#rK,#rL" ).keydown(function( event ) {
+				if (event.which == 79 || event.which == 189 || event.which == 9 || event.which == 16 || event.which == 8 || event.which == 46) {
 					return true;
-				} else key.preventDefault();
+				} else {
+					event.preventDefault();
+				};
 			});
-		
 		});
 	</script>
 	</body>
