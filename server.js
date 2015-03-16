@@ -8,7 +8,7 @@ var url = require('url');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://javacrypt_testing:basedcrockford@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
+
 
 app.use("/public", express.static(__dirname + '/public'));
 app.use(bodyParser.json());
