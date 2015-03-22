@@ -581,7 +581,8 @@ JCGA_V1 = (function() {
 			return I;
 		};
 		
-		enemies = [];
+		//var for privacy within IIFE
+		var enemies = [];
 		
 		function Enemy(I) {
 			I = I || {};
