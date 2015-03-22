@@ -209,6 +209,68 @@ JCGA_V1 = (function() {
 	var checkWorld 		= false;
 	var isWorldBuilt	= false;
 	
+	//MAZE GRAPH:	copy from this object, this is a template and should not be changed itself.
+	var mazeGraph = function() {
+		this.nodes = [
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0],
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0],
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0],
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0],
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0],
+						[1,0,1,0,1,0,1,0,1,0,1,0],
+						[0,0,0,0,0,0,0,0,0,0,0,0]	
+					 ];
+	};
+					
+	var bTMaze_NorthEast = function() {
+		var myGraph = new mazeGraph();
+		var randomToken;
+		
+		for (var rCount = 0; rCount < myGraph.nodes.length; rCount++){
+			for (var cCount = 0; cCount < myGraph.nodes[0].length; cCount++){
+				//if node is on the first row, go east by default
+				if (rCount === 0 && cCount < 11) { 
+					if (myGraph.nodes[rCount][cCount] != 1) { 
+						myGraph.nodes[rCount][cCount] = 2; 
+					};
+				}
+				//else, if node is on the far-east corner, but not the last row that has nodes, go south
+				else if (rCount < 11 && cCount === 10) {
+					if (myGraph.nodes[rCount][cCount] != 1) { 
+						myGraph.nodes[rCount][cCount] = 2; 
+					};
+				}
+				//all other nodes are valid for random north/east branching
+				else { 
+					if (myGraph.nodes[rCount][cCount] === 1) {
+						randomToken = Math.floor((Math.random() * 2) + 1);
+						if (randomToken === 1) { myGraph.nodes[rCount - 1][cCount] = 2; }
+						else { myGraph.nodes[rCount][cCount + 1] = 2; }
+					};
+				};
+			};		
+		};
+		
+		for (var rCount = 0; rCount < myGraph.nodes.length; rCount++){
+			for (var cCount = 0; cCount < myGraph.nodes[0].length; cCount++){
+				if (myGraph.nodes[rCount][cCount] != 0) { spaceArr.push( new tilespace(cCount * TILE_W, rCount * TILE_H) );	} 
+				else { blockArr.push( new tileblock(cCount * TILE_W, rCount * TILE_H) ); };
+			};
+		};
+		
+		for (var nople = 0; nople < 12; nople++) {
+			mazerowStr = JSON.stringify(myGraph.nodes[nople])
+			console.log (mazerowStr);
+		};
+		
+		isWorldBuilt = true;		
+	};
+	
 	//TILEBLOCK OBJECT: 	a colliding block 
 	var tileblock = function(x, y) {
 		this.x 	= x;
@@ -749,6 +811,50 @@ JCGA_V1 = (function() {
 
 	return {
 		parseNewWorld_JSON : function() {
+			var myGraph = new mazeGraph();
+			var randomToken;
+			
+			for (var rCount = 0; rCount < myGraph.nodes.length; rCount++){
+				for (var cCount = 0; cCount < myGraph.nodes[0].length; cCount++){
+					//if node is on the first row, go east by default
+					if (rCount === 0 && cCount < 11) { 
+						if (myGraph.nodes[rCount][cCount] != 1) { 
+							myGraph.nodes[rCount][cCount] = 2; 
+						};
+					}
+					//else, if node is on the far-east corner, but not the last row that has nodes, go south
+					else if (rCount < 11 && cCount === 10) {
+						if (myGraph.nodes[rCount][cCount] != 1) { 
+							myGraph.nodes[rCount][cCount] = 2; 
+						};
+					}
+					//all other nodes are valid for random north/east branching
+					else { 
+						if (myGraph.nodes[rCount][cCount] === 1) {
+							randomToken = Math.floor((Math.random() * 2) + 1);
+							if (randomToken === 1) { myGraph.nodes[rCount - 1][cCount] = 2; }
+							else { myGraph.nodes[rCount][cCount + 1] = 2; }
+						};
+					};
+				};		
+			};
+			
+			for (var rCount = 0; rCount < myGraph.nodes.length; rCount++){
+				for (var cCount = 0; cCount < myGraph.nodes[0].length; cCount++){
+					if (myGraph.nodes[rCount][cCount] != 0) { spaceArr.push( new tilespace(cCount * TILE_W, rCount * TILE_H) );	} 
+					else { blockArr.push( new tileblock(cCount * TILE_W, rCount * TILE_H) ); };
+				};
+			};
+			
+			for (var nople = 0; nople < 12; nople++) {
+				mazerowStr = JSON.stringify(myGraph.nodes[nople])
+				console.log (mazerowStr);
+			};
+			
+			isWorldBuilt = true;		
+		}
+		
+		/*parseNewWorld_JSON : function() {
 			//select a random index to use to generate a level:
 			if(typeof levelPlans === 'undefined') {
 				levelPlans = levelPlans_JSON;
@@ -782,7 +888,7 @@ JCGA_V1 = (function() {
 			}
 			
 			isWorldBuilt = true;
-		}
+		}*/
 	};
 	
 })();
