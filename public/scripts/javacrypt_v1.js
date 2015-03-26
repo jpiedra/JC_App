@@ -538,6 +538,11 @@ JCGA_V1 = (function() {
 					})
 				};
 				
+				if (player.x <= 0) { player.x = 0; }
+				if (player.x >= w) { player.x = w; }
+				if (player.y <= 0) { player.y = 0; }
+				if (player.y >= h) { player.y = h; }
+				
 				if (keydown.space) {
 					player.shoot();
 					keydown.space = false;
@@ -764,6 +769,11 @@ JCGA_V1 = (function() {
 						};
 					})
 				};
+				
+				if (I.x <= 0) { I.x = 0; }
+				if (I.x >= w) { I.x = w; }
+				if (I.y <= 0) { I.y = 0; }
+				if (I.y >= h) { I.y = h; }
 			};
 			
 			I.update = function() {
