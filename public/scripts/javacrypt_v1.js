@@ -31,127 +31,49 @@ JCGA_V1 = (function() {
 	var stoneBlocks_arr = [];
 	
 	var bg_img 			= new Image();
-	bg_img.ready 	= false;
+	bg_img.ready 		= false;
+	bg_img.onload 		= setAssetReady;
 	
 	var b0 				= new Image();
-	b0.ready 		= false;
+	b0.ready 			= false;
+	b0.onload 			= setAssetReady;
 	
 	var b1				= new Image();
-	b1.ready 		= false;
+	b1.ready 			= false;
+	b1.onload 			= setAssetReady;
 	
 	var b2 				= new Image();
-	b2.ready 		= false;
+	b2.ready 			= false;
+	b2.onload 			= setAssetReady;
 	
 	var b3 				= new Image();
-	b3.ready 		= false;
-	
+	b3.ready 			= false;
+	b3.onload 			= setAssetReady;
+		
 	var b4 				= new Image();
-	b4.ready 		= false;
+	b4.ready 			= false;
+	b4.onload 			= setAssetReady;
 	
 	var b5 				= new Image();
-	b5.ready 		= false;
+	b5.ready 			= false;
+	b5.onload 			= setAssetReady;
 	
 	var w0 				= new Image();
-	w0.ready 		= false;
+	w0.ready 			= false;
+	w0.onload 			= setAssetReady;
 	
 	var char_sprite 		= new Image();
-	char_sprite.ready 	= false;
+	char_sprite.ready 		= false;
+	char_sprite.onload 		= setAssetReady;
 	
 	var char_bullet_sprite 			= new Image();
-	char_bullet_sprite.ready 	= false;
+	char_bullet_sprite.ready 		= false;
+	char_bullet_sprite.onload 		= setAssetReady;
 	
 	var enemy_sprite 		= new Image();
-	enemy_sprite.ready 	= false;
+	enemy_sprite.ready 		= false;
+	enemy_sprite.onload 	= setAssetReady;
 	
-	var socket			= io();
-	
-	//BACKGROUND OF THE GAME
-	socket.on('image-bg', function(info) {
-		if (info.image) {
-			bg_img.ready 	= false;
-			bg_img.onload 	= setAssetReady;
-			bg_img.src 	= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});		
-	//TILE BLOCKS
-	socket.on('res-block-0', function(info) {
-		if (info.image) {
-			b0.ready 	= false;
-			b0.onload	= setAssetReady;
-			b0.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});
-	socket.on('res-block-1', function(info) {
-		if (info.image) {
-			b1.ready 	= false;
-			b1.onload 	= setAssetReady;
-			b1.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-	socket.on('res-block-2', function(info) {
-		if (info.image) {
-			b2.ready 	= false;
-			b2.onload 	= setAssetReady;
-			b2.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-	socket.on('res-block-3', function(info) {
-		if (info.image) {
-			b3.ready 	= false;
-			b3.onload 	= setAssetReady;
-			b3.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-	socket.on('res-block-4', function(info) {
-		if (info.image) {
-			b4.ready 	= false;
-			b4.onload 	= setAssetReady;
-			b4.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-	socket.on('res-block-5', function(info) {
-		if (info.image) {
-			b5.ready 	= false;
-			b5.onload 	= setAssetReady;
-			b5.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-	//TILE WALL
-	socket.on('res-wall-0', function(info) {
-		if (info.image) {
-			w0.ready 	= false;
-			w0.onload 	= setAssetReady;
-			w0.src 		= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-
-	//CHARACTER SPRITE
-	socket.on('res-mage-spr', function(info) {
-		if (info.image) {
-			char_sprite.ready 	= false;
-			char_sprite.onload 	= setAssetReady;
-			char_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});
-	
-	//CHARACTER BULLET SPRITE
-	socket.on('res-mage-bullet-spr', function(info) {
-		if (info.image) {
-			char_bullet_sprite.ready 	= false;
-			char_bullet_sprite.onload 	= setAssetReady;
-			char_bullet_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});
-
-	//SKELETON MAGE SPRITE
-	socket.on('res-skeletonmage-spr', function(info) {
-		if (info.image) {
-			enemy_sprite.ready 	= false;
-			enemy_sprite.onload = setAssetReady;
-			enemy_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
-		};
-	});	
-
 	//HELPER FUNCTION, SET IMAGE'S STATUS ONCE LOADED
 	function setAssetReady() {
 		this.ready 				= true;
@@ -341,31 +263,6 @@ JCGA_V1 = (function() {
 			a.y < b.y + b.height &&
 			a.y + a.height > b.y;	
 	};
-		
-	var collides_x = function(a, b) {
-		return a.x < b.x + b.width &&
-			a.x + a.width > b.x;
-	};
-
-	var collides_y = function(a, b) {
-		return a.y < b.y + b.height &&
-			a.y + a.height > b.y;	
-	};
-	
-	var buildRow = function(rowString, rowNum) {
-		var j = 0;
-		var tiles = rowString.split();
-		for (j = 0; j < 12; j++){
-			if (rowString.charAt(j) === "o" || rowString.charAt(j) === "O"){
-				blockArr.push( new tileblock(j * TILE_W, rowNum * TILE_H) );
-				console.log("BLOCK - x: " + j * TILE_W + " y: " + rowNum * TILE_H);
-			} else if (rowString.charAt(j) === "-"){
-				spaceArr.push( new tilespace(j * TILE_W, rowNum * TILE_H) );
-				console.log("SPACE - x: " + j * TILE_W + " y: " + rowNum * TILE_H);
-			}
-		}
-	};
-	
 	
 	var checkingWorld = function() {
 		if (isWorldBuilt) {

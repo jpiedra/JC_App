@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
 
+
+
 app.use("/public", express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
