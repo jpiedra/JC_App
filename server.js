@@ -8,7 +8,7 @@ var url = require('url');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://javacrypt_testing:basedcrockford@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
+var db = mongojs('mongodb://javacrypt_testing:----@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
 var routes = require('./routes/index');
 
 app.use(express.static(path.join(__dirname, 'public')));
