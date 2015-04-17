@@ -43,12 +43,7 @@
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
-		
-	$( "#toggle-help" ).click( function(){
-		$( "#game-help" ).toggle( "slow" );
-	});
-	
-	var levelPlans_JSON;
+		var levelPlans_JSON;
 	
 		$(document).ready(function(){
 			$.ajax({
@@ -56,7 +51,8 @@
 				dataType: "text",
 				success: function(data) {
 					levelPlans_JSON = $.parseJSON(data);
-					JCGA_V1.parseNewWorld_JSON();
+					if (JSON.stringify(levelPlans_JSON) === '{}') JCGA_V1.parseNewWorld_MAZE();
+					else JCGA_V1.parseNewWorld_JSON();
 				}
 			});
 		})
