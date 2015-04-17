@@ -51,7 +51,8 @@
 				dataType: "text",
 				success: function(data) {
 					levelPlans_JSON = $.parseJSON(data);
-					JCGA_V1.parseNewWorld_JSON();
+					if (JSON.stringify(levelPlans_JSON) === '{}') JCGA_V1.parseNewWorld_MAZE();
+					else JCGA_V1.parseNewWorld_JSON();
 				}
 			});
 		})

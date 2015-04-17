@@ -820,7 +820,7 @@ JCGA_V1 = (function() {
 	};
 
 	return {
-		parseNewWorld_JSON : function() {
+		parseNewWorld_MAZE : function() {
 			var myGraph = new mazeGraph();
 			var randomToken;
 			
@@ -862,9 +862,9 @@ JCGA_V1 = (function() {
 			};
 			
 			isWorldBuilt = true;		
-		}
+		},
 		
-		/*parseNewWorld_JSON : function() {
+		parseNewWorld_JSON : function() {
 			//select a random index to use to generate a level:
 			if(typeof levelPlans === 'undefined') {
 				levelPlans = levelPlans_JSON;
@@ -898,7 +898,7 @@ JCGA_V1 = (function() {
 			}
 			
 			isWorldBuilt = true;
-		}*/
+		}
 	};
 	
 })();
