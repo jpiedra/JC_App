@@ -101,6 +101,10 @@ module.exports = exports = function(app, path, http, io, fs, db){
 	app.get('/upload', function(req, res){
 		res.sendFile(path.join(__dirname, '../views', 'upload.html'));
 	});
+	
+	app.get('/about', function(req, res){
+		res.sendFile(path.join(__dirname, '../views', 'about.html'));
+	});
 								
 	app.get('*', function(req, res){
 		res.sendFile(path.join(__dirname, '../views', '404.html'));
