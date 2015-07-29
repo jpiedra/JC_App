@@ -1,0 +1,18 @@
+//example for level data schema:
+{
+    "_id": {
+        "$oid": "55306e558c8acf0300f39665"
+    },
+    "rA": "oooooooooooo",
+    "rB": "------------",
+    "rC": "o----------o",
+    "rD": "o----------o",
+    "rE": "oooo--------",
+    "rF": "------oooooo",
+    "rG": "ooooo-------",
+    "rH": "--oo---o-o-o",
+    "rI": "o----ooo-o-o",
+    "rJ": "ooo--------o",
+    "rK": "ooooo------o",
+    "rL": "oooooooooooo"
+}

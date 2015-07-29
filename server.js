@@ -8,7 +8,7 @@ var url = require('url');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://javacrypt_testing:basedcrockford@ds062097.mongolab.com:62097/levelsdb', ['leveldata']);
+var db = mongojs('...levelsdb', ['leveldata']);
 var routes = require('./routes/index');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,3 +19,4 @@ routes(app, path, http, io, fs, db);
 http.listen(process.env.PORT || 5000, function(){
 	console.log('listening on *:5000');
 });
+
