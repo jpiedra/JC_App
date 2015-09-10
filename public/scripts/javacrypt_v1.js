@@ -2,18 +2,18 @@ JCGA_V1 = (function() {
 	//*** 	Constant Values: 	Keep these embedded directly in the  app object
 	//***						as they are to accessed more frequently than other members 
 	//THE CANVAS ENVIRONMENT 
-	var canvas 			= $("#canvas")[0];
-	var ctx 			= canvas.getContext("2d");
-	var w 				= $("#canvas").width();
-	var h 				= $("#canvas").height();
+	var canvas 		= $("#canvas")[0];
+	var ctx 		= canvas.getContext("2d");
+	var w 			= $("#canvas").width();
+	var h 			= $("#canvas").height();
 		
 	//TILE DIMENSIONS
-	var TILE_W 			= 48;
-	var TILE_H 			= 48;
+	var TILE_W 		= 48;
+	var TILE_H 		= 48;
 		
 	//CHARACTER SIZE AND SPRITE TRAVERSAL
-	var CHAR_W 			= 32;
-	var CHAR_H 			= 48;
+	var CHAR_W 		= 32;
+	var CHAR_H 		= 48;
 		
 	var CHAR_SPRITE_W 	= 128;
 	var CHAR_SPRITE_H 	= 192;
@@ -22,7 +22,7 @@ JCGA_V1 = (function() {
 			
 		
 	//FRAMES PER SECOND
-	var FPS 			= 30;
+	var FPS 		= 30;
 		
 	//OTHER VALUES
 	var GAME_FONT 		= "bold 24pt Lucida Console";
@@ -30,38 +30,38 @@ JCGA_V1 = (function() {
 	//*** 	Static Images: 	used in rendering the game
 	var stoneBlocks_arr = [];
 	
-	var bg_img 			= new Image();
-	bg_img.ready 	= false;
+	var bg_img 		= new Image();
+	bg_img.ready 		= false;
 	
-	var b0 				= new Image();
+	var b0 			= new Image();
 	b0.ready 		= false;
 	
-	var b1				= new Image();
+	var b1			= new Image();
 	b1.ready 		= false;
 	
-	var b2 				= new Image();
+	var b2 			= new Image();
 	b2.ready 		= false;
 	
-	var b3 				= new Image();
+	var b3 			= new Image();
 	b3.ready 		= false;
 	
-	var b4 				= new Image();
+	var b4 			= new Image();
 	b4.ready 		= false;
 	
-	var b5 				= new Image();
+	var b5 			= new Image();
 	b5.ready 		= false;
 	
-	var w0 				= new Image();
+	var w0 			= new Image();
 	w0.ready 		= false;
 	
-	var char_sprite 		= new Image();
+	var char_sprite 	= new Image();
 	char_sprite.ready 	= false;
 	
-	var char_bullet_sprite 			= new Image();
+	var char_bullet_sprite 		= new Image();
 	char_bullet_sprite.ready 	= false;
 	
 	var enemy_sprite 		= new Image();
-	enemy_sprite.ready 	= false;
+	enemy_sprite.ready 		= false;
 	
 	var socket			= io();
 	
@@ -139,7 +139,7 @@ JCGA_V1 = (function() {
 		if (info.image) {
 			char_bullet_sprite.ready 	= false;
 			char_bullet_sprite.onload 	= setAssetReady;
-			char_bullet_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
+			char_bullet_sprite.src 		= 'data:image/jpeg;base64,' + info.buffer;
 		};
 	});
 
@@ -147,14 +147,14 @@ JCGA_V1 = (function() {
 	socket.on('res-skeletonmage-spr', function(info) {
 		if (info.image) {
 			enemy_sprite.ready 	= false;
-			enemy_sprite.onload = setAssetReady;
+			enemy_sprite.onload 	= setAssetReady;
 			enemy_sprite.src 	= 'data:image/jpeg;base64,' + info.buffer;
 		};
 	});	
 
 	//HELPER FUNCTION, SET IMAGE'S STATUS ONCE LOADED
 	function setAssetReady() {
-		this.ready 				= true;
+		this.ready 	= true;
 	};
 
 	//LOAD EACH IMAGE IN THE ARRAY
@@ -172,11 +172,11 @@ JCGA_V1 = (function() {
 	ctx.fillRect(0, 0, w, h);
 	ctx.globalAlpha 	= 1;	
 	ctx.fillStyle		= "#fff";
-	ctx.font 			= GAME_FONT;
+	ctx.font 		= GAME_FONT;
 	ctx.fillText("Loading game assets...", 0+12, h-12);
 	
-	var canRun 				= false;
-	var asset_loader 		= setInterval(asset_loading, 30);
+	var canRun 		= false;
+	var asset_loader 	= setInterval(asset_loading, 30);
 	
 	var asset_loading = function() {
 		if (b0.ready && b1.ready && b2.ready && b3.ready && b4.ready && b5.ready && w0.ready && char_sprite.ready && char_bullet_sprite.ready &&
@@ -202,7 +202,7 @@ JCGA_V1 = (function() {
 	var spaceArr 		= [];
 	
 	//REFERENCE VARIABLE, AND CONTAINER FOR TEXT INFORMATION OF LEVEL DATA
-	var rowArr 			= [];
+	var rowArr 		= [];
 	var levelData 		= [];
 	
 	//SENTINELS, MODIFIED ONCE CRUCIAL TASKS ARE COMPLETED TO BROADCAST NEW EVENTS
@@ -211,20 +211,20 @@ JCGA_V1 = (function() {
 	
 	//MAZE GRAPH:	copy from this object, this is a template and should not be changed itself.
 	var mazeGraph = function() {
-		this.nodes = [
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0],
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0],
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0],
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0],
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0],
-						[1,0,1,0,1,0,1,0,1,0,1,0],
-						[0,0,0,0,0,0,0,0,0,0,0,0]	
-					 ];
+		this.nodes = 	[
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0],
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0],
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0],
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0],
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0],
+					[1,0,1,0,1,0,1,0,1,0,1,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0]	
+				];
 	};
 					
 	var bTMaze_NorthEast = function() {
@@ -375,19 +375,19 @@ JCGA_V1 = (function() {
 	};
 		
 	window.onload = function() {
-		checkWorld = setInterval(checkingWorld, FPS);
+		checkWorld 	= setInterval(checkingWorld, FPS);
 	};
 	
 	var beginGame = function() {
-		gameloop 	= setInterval(renderGame, FPS);
-		spaceLimit 	= spaceArr.length;
+		gameloop 		= setInterval(renderGame, FPS);
+		spaceLimit 		= spaceArr.length;
 		player_startIndex 	= Math.floor(Math.random()*spaceArr.length);
 		enemy_startIndex 	= 0;
 		
-		playerBullets 	= [];
-		enemyBullets 	= [];
+		playerBullets 		= [];
+		enemyBullets 		= [];
 		
-		gamescore = 0;
+		gamescore 		= 0;
 		
 		function collides(a, b) {
 			return a.x < b.x + b.width &&
