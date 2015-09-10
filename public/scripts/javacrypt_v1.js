@@ -273,17 +273,17 @@ JCGA_V1 = (function() {
 	
 	//TILEBLOCK OBJECT: 	a colliding block 
 	var tileblock = function(x, y) {
-		this.x 	= x;
-		this.y 	= y;
+		this.x 		= x;
+		this.y 		= y;
 		
-		this.x2 = x + TILE_W;
-		this.y2 = y + TILE_H;
+		this.x2 	= x + TILE_W;
+		this.y2 	= y + TILE_H;
 		
 		this.width 	= TILE_W;
-		this.height = TILE_H;
+		this.height 	= TILE_H;
 		
 		this.imgID 	= Math.floor(Math.random() * 6);
-		this.active = true;
+		this.active 	= true;
 		
 		this.draw = function() {
 			if (this.imgID === 0) {
@@ -320,15 +320,15 @@ JCGA_V1 = (function() {
 	//TILESPACE OBJECT: 	an empty space charaters can walk on
 	//						doesn't get rendered, but used for positioning/AI purposes
 	var tilespace = function(x, y) {
-		this.x 	= x;
-		this.y 	= y;
+		this.x 		= x;
+		this.y 		= y;
 		
 		this.width 	= TILE_W;
-		this.height = TILE_H;
+		this.height 	= TILE_H;
 		
-		this.active = true;
+		this.active 	= true;
 
-		this.remove 	= function() {
+		this.remove = function() {
 			this.active = false;
 		};
 	};
