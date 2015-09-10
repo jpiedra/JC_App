@@ -1,6 +1,6 @@
 JCGA_V1 = (function() {
 	//*** 	Constant Values: 	Keep these embedded directly in the  app object
-	//***						as they are to accessed more frequently than other members 
+	//***				as they are to accessed more frequently than other members 
 	//THE CANVAS ENVIRONMENT 
 	var canvas 		= $("#canvas")[0];
 	var ctx 		= canvas.getContext("2d");
@@ -195,7 +195,7 @@ JCGA_V1 = (function() {
 	};
 	
 	//*** Parse JSON Level Data: 	functions and members used for level processing
-	// 								Begin by parsing a simple schematic text file for a map
+	// 				Begin by parsing a simple schematic text file for a map
 	//CONTAINERS FOR LEVEL OBJECTS, TEXTUAL REPRESENTATION AND THEN PROCESSED OBJECTS
 	var stringArr 		= [];
 	var blockArr 		= [];
@@ -318,7 +318,7 @@ JCGA_V1 = (function() {
 	};
 	
 	//TILESPACE OBJECT: 	an empty space charaters can walk on
-	//						doesn't get rendered, but used for positioning/AI purposes
+	//			doesn't get rendered, but used for positioning/AI purposes
 	var tilespace = function(x, y) {
 		this.x 		= x;
 		this.y 		= y;
@@ -334,7 +334,7 @@ JCGA_V1 = (function() {
 	};
 	
 	//COLLISION METHODS: 	used to test if actors are colliding in certain conditions:
-	//						in the following order: basic box, x-axis, and y-axis collisions.
+	//			in the following order: basic box, x-axis, and y-axis collisions.
 	var collides = function(a, b) {
 		return a.x < b.x + b.width &&
 			a.x + a.width > b.x &&
