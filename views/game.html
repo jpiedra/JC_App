@@ -45,22 +45,30 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 		var levelPlans_JSON;
-	
+				
+		/*
 		$(document).ready(function(){
 			$.ajax({
 				url: "./myLevels",
 				dataType: "text",
 				success: function(data) {
 					levelPlans_JSON = $.parseJSON(data);
-					if (JSON.stringify(levelPlans_JSON) === '{}') JCGA_V1.parseNewWorld_MAZE();
-					else JCGA_V1.parseNewWorld_JSON();
+					JCGA_V1.parseNewWorld_JSON();
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        				console.log("Status: " + textStatus + ", Error: " + errorThrown); 
+					JCGA_V1.parseNewWorld_MAZE();
 				}
 			});
 		})
+		*/
 	</script>
 	<script src="/public/controllers/controller.js"></script>
 	<script src="/public/scripts/jquery.hotkeys.js"></script>
 	<script src="/public/scripts/key_status.js"></script>
 	<script src="/public/scripts/javacrypt_v1.js"></script>
+	<script>
+		JCGA_V1.parseNewWorld_MAZE();
+	</script>
 	</body>
 </html>

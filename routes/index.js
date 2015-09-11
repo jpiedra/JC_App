@@ -1,4 +1,4 @@
-module.exports = exports = function(app, path, http, io, fs, db){
+module.exports = exports = function(app, path, http, io, fs){
 	
 	app.get('/', function(req, res){
 		res.sendFile(path.join(__dirname, '../views', 'index.html'));
@@ -85,10 +85,13 @@ module.exports = exports = function(app, path, http, io, fs, db){
 		
 	});
 
+	/*
 	app.get('/myLevels', function(req, res){
-		db.leveldata.find(function (err, docs) {
-			res.json(docs);
-		});
+		if (db) {
+			db.leveldata.find(function (err, docs) {
+				res.json(docs);
+			});
+		};
 	});
 
 	app.post('/myLevels', function(req, res){
@@ -97,11 +100,14 @@ module.exports = exports = function(app, path, http, io, fs, db){
 			res.json(doc);
 		});
 	});
+	*/
 
 	app.get('/upload', function(req, res){
-		res.sendFile(path.join(__dirname, '../views', 'upload.html'));
+		res.sendFile(path.join(__dirname, '../views', '404.html'));		
+		//res.sendFile(path.join(__dirname, '../views', 'upload.html'));
 	});
-	
+		
+
 	app.get('/about', function(req, res){
 		res.sendFile(path.join(__dirname, '../views', 'about.html'));
 	});
