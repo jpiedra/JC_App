@@ -1,6 +1,6 @@
 JCGA_V1 = (function() {
 	//*** 	Constant Values: 	Keep these embedded directly in the  app object
-	//***						as they are to accessed more frequently than other members 
+	//***				as they are to accessed more frequently than other members 
 	//THE CANVAS ENVIRONMENT 
 	var canvas 			= $("#canvas")[0];
 	var ctx 			= canvas.getContext("2d");
@@ -15,24 +15,24 @@ JCGA_V1 = (function() {
 	var CHAR_W 			= 32;
 	var CHAR_H 			= 48;
 		
-	var CHAR_SPRITE_W 	= 128;
-	var CHAR_SPRITE_H 	= 192;
-	var SPRITE_START_X 	= 0;
-	var SPRITE_START_Y 	= 144;
+	var CHAR_SPRITE_W 		= 128;
+	var CHAR_SPRITE_H 		= 192;
+	var SPRITE_START_X 		= 0;
+	var SPRITE_START_Y 		= 144;
 			
 		
 	//FRAMES PER SECOND
 	var FPS 			= 30;
 		
 	//OTHER VALUES
-	var GAME_FONT 		= "bold 24pt Lucida Console";
+	var GAME_FONT 			= "bold 24pt Lucida Console";
 
 	//*** 	Static Images: 	used in rendering the game
-	var stoneBlocks_arr = [];
+	var stoneBlocks_arr 		= [];
 	
 	var bg_img 			= new Image();
-	bg_img.ready 		= false;
-	bg_img.onload 		= setAssetReady;
+	bg_img.ready 			= false;
+	bg_img.onload 			= setAssetReady;
 	
 	var b0 				= new Image();
 	b0.ready 			= false;
@@ -66,17 +66,17 @@ JCGA_V1 = (function() {
 	char_sprite.ready 		= false;
 	char_sprite.onload 		= setAssetReady;
 	
-	var char_bullet_sprite 			= new Image();
-	char_bullet_sprite.ready 		= false;
-	char_bullet_sprite.onload 		= setAssetReady;
+	var char_bullet_sprite 		= new Image();
+	char_bullet_sprite.ready 	= false;
+	char_bullet_sprite.onload 	= setAssetReady;
 	
 	var enemy_sprite 		= new Image();
 	enemy_sprite.ready 		= false;
-	enemy_sprite.onload 	= setAssetReady;
+	enemy_sprite.onload 		= setAssetReady;
 	
 	//HELPER FUNCTION, SET IMAGE'S STATUS ONCE LOADED
 	function setAssetReady() {
-		this.ready 				= true;
+		this.ready 	= true;
 	};
 
 	//LOAD EACH IMAGE IN THE ARRAY
@@ -94,11 +94,11 @@ JCGA_V1 = (function() {
 	ctx.fillRect(0, 0, w, h);
 	ctx.globalAlpha 	= 1;	
 	ctx.fillStyle		= "#fff";
-	ctx.font 			= GAME_FONT;
+	ctx.font 		= GAME_FONT;
 	ctx.fillText("Loading game assets...", 0+12, h-12);
 	
-	var canRun 				= false;
-	var asset_loader 		= setInterval(asset_loading, 30);
+	var canRun 		= false;
+	var asset_loader	= setInterval(asset_loading, 30);
 	
 	var asset_loading = function() {
 		if (b0.ready && b1.ready && b2.ready && b3.ready && b4.ready && b5.ready && w0.ready && char_sprite.ready && char_bullet_sprite.ready &&
@@ -117,14 +117,14 @@ JCGA_V1 = (function() {
 	};
 	
 	//*** Parse JSON Level Data: 	functions and members used for level processing
-	// 								Begin by parsing a simple schematic text file for a map
+	// 				Begin by parsing a simple schematic text file for a map
 	//CONTAINERS FOR LEVEL OBJECTS, TEXTUAL REPRESENTATION AND THEN PROCESSED OBJECTS
 	var stringArr 		= [];
 	var blockArr 		= [];
 	var spaceArr 		= [];
 	
 	//REFERENCE VARIABLE, AND CONTAINER FOR TEXT INFORMATION OF LEVEL DATA
-	var rowArr 			= [];
+	var rowArr 		= [];
 	var levelData 		= [];
 	
 	//SENTINELS, MODIFIED ONCE CRUCIAL TASKS ARE COMPLETED TO BROADCAST NEW EVENTS
@@ -146,7 +146,7 @@ JCGA_V1 = (function() {
 						[0,0,0,0,0,0,0,0,0,0,0,0],
 						[1,0,1,0,1,0,1,0,1,0,1,0],
 						[0,0,0,0,0,0,0,0,0,0,0,0]	
-					 ];
+			 ];
 	};
 					
 	var bTMaze_NorthEast = function() {
@@ -202,10 +202,10 @@ JCGA_V1 = (function() {
 		this.y2 = y + TILE_H;
 		
 		this.width 	= TILE_W;
-		this.height = TILE_H;
+		this.height 	= TILE_H;
 		
 		this.imgID 	= Math.floor(Math.random() * 6);
-		this.active = true;
+		this.active 	= true;
 		
 		this.draw = function() {
 			if (this.imgID === 0) {
